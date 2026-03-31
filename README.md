@@ -32,8 +32,8 @@ I am Labid, a student and tech enthusiast with a passion for software developmen
 </p>
 
 
-<img align="left" src="http://github-readme-streak-stats.herokuapp.com?user=labid-al-nahiyan&theme=dark&background=000000"></img>
-<img  align="right" src="https://github-readme-stats.vercel.app/api/top-langs/?username=labid-al-nahiyan&layout=compact&theme=dark"></img>
+<img align="left" src="http://github-readme-streak-stats.herokuapp.com?user=labid-al-nahiyan-avro&theme=dark&background=000000"></img>
+<img  align="right" src="https://github-readme-stats.vercel.app/api/top-langs/?username=labid-al-nahiyan-avro&layout=compact&theme=dark"></img>
 
 
 
