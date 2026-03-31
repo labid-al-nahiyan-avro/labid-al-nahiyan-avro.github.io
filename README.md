@@ -1,6 +1,6 @@
  [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&duration=2500&pause=1000&color=8DABF7&background=33303000&multiline=true&width=435&lines=%F0%9F%91%8BHey+Nice+to+meet+you)](https://git.io/typing-svg)
 
-This is new account. I lost previous accout. Visit [this repo](https://github.com/labid-al-nahiyan-avro/Previous-Account)
+This is new account. I lost previous ont. Visit [this repo](https://github.com/labid-al-nahiyan-avro/Previous-Account)
 ## <img src="https://c.tenor.com/NCRHhqkXrJYAAAAi/programmers-go-internet.gif" width="25">  <b>About Me</b>
 I am Labid, a student and tech enthusiast with a passion for software development. I thrive in the dynamic world of technology. I strive to inspire others to push their boundaries and pursue greatness. Let's create innovative solutions together!
 
