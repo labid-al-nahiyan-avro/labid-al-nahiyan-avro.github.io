@@ -1,25 +1,38 @@
- [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&duration=2500&pause=1000&color=8DABF7&background=33303000&multiline=true&width=435&lines=%F0%9F%91%8BHey+Nice+to+meet+you)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&duration=2500&pause=1000&color=8DABF7&background=33303000&multiline=true&width=435&lines=%F0%9F%91%8B+Hey+Nice+to+meet+you)](https://git.io/typing-svg)
 
-This is new account. I lost the previous one. Visit [this repo](https://github.com/labid-al-nahiyan-avro/Previous-Account)
-## <img src="https://c.tenor.com/NCRHhqkXrJYAAAAi/programmers-go-internet.gif" width="25">  <b>About Me</b>
-I am Labid, a student and tech enthusiast with a passion for software development. I thrive in the dynamic world of technology. I strive to inspire others to push their boundaries and pursue greatness. Let's create innovative solutions together!
+## 👋 About Me
 
-<br>
-<h1>Currently I am : ~</h1>
+I am **Labid Al Nahiyan**, a Machine Learning Engineer and full-stack developer with a strong focus on building scalable AI systems and solving real-world problems.
 
-- Conducting research and pursuing a thesis in Computer Vision.
-- Exploring career opportunities for growth and impact.
+- 🎓 CSE @ BUET  
+- 🔬 Researching **Dense Crowd Tracking (Computer Vision)**  
+- 🧠 Working on **custom loss functions for detection & biometric systems**  
+- ⚙️ Building full-stack and AI-powered applications  
 
-<br>
+📌 This is my new GitHub account. I lost access to my previous one.  
+👉 You can find my earlier work here:  
+🔗 https://github.com/labid-al-nahiyan
 
-<h1>🌱 Cool things that I explored : ~</h1>
+---
 
-- Competitive Programming in Freshman Year.
-- Object Oriented Programming Java and [JavaFx](https://openjfx.io/) for [university project](https://github.com/labid-al-nahiyan/Football_Player)
-- OracleDB for database course 
-- Andrew Ng's [Deep Learning Specialization](https://www.coursera.org/specializations/deep-learning) out of curiosity that helps me a lot later.
-- Fullstack development in <b>MERN</b> stack during second-year in university.
+## 🚀 Currently
 
+- 🤖 Exploring and building **Agentic AI systems**  
+- ⚡ Improving real-world ML systems (biometrics, detection, optimization)  
+
+---
+
+## 🌱 What I've Explored
+
+- 🧠 Competitive Programming (early foundation in problem solving)  
+- ☕ Object-Oriented Programming with Java & JavaFX  
+- 🗄️ Database systems using OracleDB  
+- 📚 Completed Andrew Ng’s Deep Learning Specialization  
+- 🌐 Full-stack development using **MERN & SvelteKit**  
+
+---
+
+## 🛠 Tech Stack
 
 <p>
  <img src="https://img.shields.io/badge/Tailwind_CSS-grey?style=for-the-badge&logo=tailwind-css&logoColor=38B2AC"></img>
@@ -32,9 +45,27 @@ I am Labid, a student and tech enthusiast with a passion for software developmen
  <img src="https://img.shields.io/badge/SvelteKit-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00"></img>
 </p>
 
+---
 
-<img align="left" src="http://github-readme-streak-stats.herokuapp.com?user=labid-al-nahiyan-avro&theme=dark&background=000000"></img>
-<img  align="right" src="https://github-readme-stats.vercel.app/api/top-langs/?username=labid-al-nahiyan-avro&layout=compact&theme=dark"></img>
+## 📊 GitHub Stats
 
+<p align="center">
+  <img src="http://github-readme-streak-stats.herokuapp.com?user=labid-al-nahiyan-avro&theme=dark&background=000000" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=labid-al-nahiyan-avro&layout=compact&theme=dark" />
+</p>
 
+---
 
+## 🎯 Focus
+
+I am particularly interested in:
+- Computer Vision & Detection Systems  
+- Scalable Machine Learning Systems  
+- LLMs & Agentic Architectures  
+- Real-world AI deployment  
+
+---
+
+## 🤝 Let’s Connect
+
+If you're working on something interesting in AI, ML, or systems — feel free to reach out or collaborate.
