@@ -1,0 +1,204 @@
+# =====================================================================
+#  data.txt  —  THE ONLY FILE YOU NEED TO EDIT
+#  ---------------------------------------------------------------------
+#  Rules:
+#   - Write  KEY: your text   on one line.
+#   - Lines starting with #  are notes and are ignored.
+#   - To add another project / publication / etc., copy a [BLOCK]
+#     section and edit it. To remove one, delete its whole [BLOCK].
+#   - Leave a value blank (e.g.  SCHOLAR:  ) to hide that link.
+#   - Keep each value on a SINGLE line (long lines are fine).
+# =====================================================================
+
+
+# ============ BASIC INFO ============
+NAME: Labid Al Nahiyan
+ROLE: CS researcher
+# Square photo, at least 400×400 px, jpg / png / webp. Leave blank to hide.
+PHOTO: assets/profile.jpeg
+TAGLINE: I study the reliability and evaluation of large language models, with a focus on safety and alignment failures.
+AFFILIATION: Machine Learning Engineer, TigerIT · BSc CSE, BUET
+
+
+# ============ LINKS  (leave blank to hide; these also feed SEO + share cards) ============
+EMAIL: labid.nahiyan12@gmail.com
+GITHUB: https://github.com/labid-al-nahiyan
+LINKEDIN: https://www.linkedin.com/in/labid-al-nahiyan
+# TODO: create a Google Scholar profile + an ORCID iD, then paste the URLs here.
+# They make the preprint look official and improve how search engines link you.
+SCHOLAR:
+ORCID:
+ARXIV: https://arxiv.org/abs/2512.01037
+CV: assets/cv.pdf
+# Optional: a research-statement PDF, e.g. assets/research-statement.pdf. Blank = hidden.
+STATEMENT:
+
+
+# ============ RESEARCH INTERESTS  (one ABOUT line per paragraph) ============
+ABOUTHEADING: Research interests
+ABOUT: My research centers on making large language models more reliable and easier to evaluate. I am especially interested in safety and alignment failures: the moments where a model's behavior diverges from what it should do, and how we can measure those gaps precisely rather than anecdotally.
+ABOUT: A recurring thread across my work is designing evaluation and optimization methods. Whether diagnosing inconsistent refusals in language models, building custom loss functions for dense object tracking, or improving biometric matching in production, I am drawn to problems where the core challenge is defining the right way to measure success.
+ABOUT: I am applying to PhD programs to pursue this work in depth — building rigorous benchmarks and methods that help us understand when and why machine learning systems fail, and how to make them more trustworthy.
+
+
+# ============ MEASURED FACTS  (shown in the hero panel; up to 3 look best) ============
+# Each [STAT] is one readout. VALUE may include symbols/commas (e.g. -41%, 10,000);
+# any number inside it counts up on load. LABEL names it; NOTE is the source.
+# IMPORTANT: keep these [STAT] blocks BELOW all the plain KEY: lines above (NAME, ABOUT,
+# links, etc.) — a value line placed after a [BLOCK] is read as part of that block.
+# Delete a whole [STAT] block to remove it, or remove all three to hide the numbers.
+[STAT]
+VALUE: -41%
+LABEL: False Non-Match Rate
+NOTE: NIST MINEX III
+
+[STAT]
+VALUE: 10,000
+LABEL: paraphrase prompts
+NOTE: ParaGuard corpus
+
+[STAT]
+VALUE: 3
+LABEL: token-level metrics
+NOTE: Confusion Index · Rate · Depth
+
+
+# ============ NEWS  (newest first; one [NEWS] block per update) ============
+# DATE is shown in the left column; TEXT is the update. LINK + LINKLABEL are
+# optional — they append a link at the end of the line. Delete a block to remove it.
+[NEWS]
+DATE: Dec 2025
+TEXT: Preprint out — "When Safety Blocks Sense: Semantic Confusion in LLM Refusals."
+LINK: https://arxiv.org/abs/2512.01037
+LINKLABEL: arXiv:2512.01037
+
+[NEWS]
+DATE: Aug 2025
+TEXT: Joined TigerIT Bangladesh as a Machine Learning Engineer, working on biometric matching R&D.
+LINK:
+LINKLABEL:
+
+[NEWS]
+DATE: Mar 2025
+TEXT: Completed my BSc in CSE at BUET and defended my thesis on a contextually appropriate loss for dense crowd tracking.
+LINK:
+LINKLABEL:
+
+[NEWS]
+DATE: Nov 2024
+TEXT: Champion at the OpenAPI Hackathon, 11th National ICT Fest (IUT).
+LINK:
+LINKLABEL:
+
+
+# ============ RESEARCH  (one [RESEARCH] block per paper / project) ============
+# FEATURED: yes  → highlighted card.  TAGS are comma-separated.
+# The five fields PROBLEM..REFLECTION fill the expandable
+# "Read the full story" section inside each research card.
+# Leave any of them blank to hide that part.
+
+[RESEARCH]
+ID: semantic-confusion
+TITLE: When Safety Blocks Sense: Semantic Confusion in LLM Refusals
+ROLE: Co-author
+DATE: Dec 2025
+VENUE: arXiv:2512.01037
+FEATURED: yes
+LINK: https://arxiv.org/abs/2512.01037
+TAGS: LLM safety, alignment, evaluation
+SUMMARY: Identified a failure mode where LLMs reject harmless paraphrases of intents they otherwise accept, and built a corpus and metrics to measure it.
+PROBLEM: Safety-aligned language models often refuse requests inconsistently: a model may accept one phrasing of a harmless intent while rejecting a near-identical paraphrase. We named this failure mode "Semantic Confusion" — local inconsistencies in refusals that reveal gaps in how alignment generalizes across surface form.
+CONTRIBUTION: As co-author, I helped formalize the failure mode and build the tools to study it. We introduced ParaGuard, a 10,000-prompt corpus of controlled paraphrase clusters, and proposed three token-level metrics — Confusion Index, Confusion Rate, and Confusion Depth — to diagnose where and how strongly models become inconsistent.
+METHOD: The metrics combine sentence embeddings (to confirm paraphrases are semantically equivalent) with perplexity and token-level signals (to locate where the model's decision flips). This lets us separate genuine safety boundaries from brittle, surface-level pattern matching.
+RESULTS: ParaGuard surfaces measurable inconsistency across models, turning a previously anecdotal "the model is being weird" observation into a quantifiable, comparable signal. The framework gives a concrete handle on a real alignment gap.
+REFLECTION: I'd like to extend this toward intervention: can we use Confusion metrics during fine-tuning to actively reduce inconsistency, and do these gaps correlate with other robustness failures? The broader question — how alignment generalizes across semantically equivalent inputs — is central to where I want to take my PhD research.
+
+[RESEARCH]
+ID: crowd-tracking-loss
+TITLE: A Contextually Appropriate Loss Function for Dense Crowd Tracking
+ROLE: Undergraduate thesis · Supervisor: Prof. A. B. M. Alim Al Islam (CSE, BUET)
+DATE: Feb 2024 – Mar 2025
+VENUE: BSc Thesis, BUET
+FEATURED: no
+LINK:
+TAGS: computer vision, loss design, object tracking
+SUMMARY: Designed a size-aware, gradient-stabilized loss function that outperforms standard IoU losses for tracking small, overlapping objects in dense crowds.
+PROBLEM: Tracking small, heavily overlapping objects in dense crowds is hard: standard bounding-box losses (CIoU, DIoU, GIoU) treat large and tiny objects similarly and produce unstable gradients for the small, clustered targets that dominate crowd scenes.
+CONTRIBUTION: I proposed a size-aware, gradient-stabilized loss function tailored to small overlapping objects, and integrated it into YOLO-based detection and tracking models as the focus of my undergraduate thesis.
+METHOD: The loss reweights contributions by object scale and stabilizes gradients to prevent small targets from being drowned out during optimization, improving learning on the long tail of tiny instances.
+RESULTS: Evaluated on JHU-CROWD++ and SCUT-HEAD, the loss achieved superior mAP@50 and F1 scores compared to CIoU, DIoU, and GIoU baselines.
+REFLECTION: This work taught me that the loss function is often where the real modeling decisions live — a theme that carries directly into my interest in how we define and measure objectives for ML systems.
+
+
+# ============ PUBLICATIONS ============
+[PUBLICATION]
+CITATION: L. Al Nahiyan et al. "When Safety Blocks Sense: Measuring Semantic Confusion in LLM Refusals." arXiv preprint arXiv:2512.01037, 2025.
+LINK: https://arxiv.org/abs/2512.01037
+NOTE: Preprint
+
+[PUBLICATION]
+CITATION: L. Al Nahiyan. "A Contextually Appropriate Loss Function for Dense Crowd Tracking." BSc Thesis, Bangladesh University of Engineering and Technology (BUET), 2025.
+LINK:
+NOTE: Undergraduate thesis
+
+
+# ============ PROJECTS  (TECH is comma-separated) ============
+[PROJECT]
+NAME: Shop Genie
+BLURB: AI shopping assistant with natural-language product search over 10,000+ scraped products.
+TECH: SvelteKit, LLM, RAG
+LINK: https://github.com/labid-al-nahiyan
+
+[PROJECT]
+NAME: NerdHerd
+BLURB: All-in-one student platform with video classes, community, and quizzes; built and integrated the full stack.
+TECH: SvelteKit, TailwindCSS, PostgreSQL
+LINK: https://github.com/labid-al-nahiyan
+
+[PROJECT]
+NAME: Subset of a C compiler
+BLURB: Core compiler components — lexing, parsing, symbol tables, and code generation.
+TECH: C, Flex, Bison, YACC
+LINK: https://github.com/labid-al-nahiyan
+
+
+# ============ EXPERIENCE  (one POINT line per bullet) ============
+[EXPERIENCE]
+ORG: TigerIT Bangladesh Ltd.
+TITLE: Machine Learning Engineer
+DATE: Aug 2025 – Present
+LOCATION: Dhaka, Bangladesh
+POINT: Reduced False Non-Match Rate by 41% (0.0151 → 0.0089 at FMR ≤ 10⁻²) on the NIST MINEX III benchmark via an optimized minutiae-based template generator.
+POINT: Engineered a custom loss function addressing non-linear elastic distortions and rotational variance, improving fingerprint matching accuracy and robustness in R&D production models.
+POINT: Architected a high-throughput pipeline to preprocess and normalize 100,000+ biometric images with automated feature extraction for large-scale training.
+
+
+# ============ SKILLS  (ITEMS is comma-separated) ============
+[SKILLS]
+GROUP: ML & research
+ITEMS: PyTorch, Hugging Face, OpenCV, NumPy, RAG / LLMs
+
+[SKILLS]
+GROUP: Languages
+ITEMS: Python, C++, SQL, Java, TypeScript
+
+[SKILLS]
+GROUP: Tools & infrastructure
+ITEMS: Docker, Linux (Ubuntu), Git / GitHub, PostgreSQL, Postman
+
+
+# ============ HONORS ============
+[HONOR]
+TITLE: Champion — OpenAPI Hackathon
+DETAIL: 11th National ICT Fest 2024 (IUT)
+
+[HONOR]
+TITLE: 7th place — SEC Inter-University Junior Programming Contest 2022
+DETAIL: Team: BUET Fast & Furious
+
+
+# ============ EDUCATION ============
+[EDUCATION]
+SCHOOL: Bangladesh University of Engineering and Technology (BUET)
+DEGREE: BSc in Computer Science and Engineering
+DATE: Feb 2020 – Mar 2025

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Labid Al Nahiyan — CS Researcher</title>
+  <meta name="description" content="Labid Al Nahiyan — researcher working on the reliability and evaluation of large language models, with a focus on safety and alignment failures." />
+
+  <!-- Type system: Space Grotesk (display) · Newsreader (body serif) · JetBrains Mono (data) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Inline SVG favicon: a measurement tick — the page's signature mark -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%2315181F'/%3E%3Cpath%20d='M6%2022.5%20L13.5%2022.5%20L19%2010.5%20L26%2018.5'%20fill='none'%20stroke='%237E93FF'%20stroke-width='2.4'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3Ccircle%20cx='19'%20cy='10.5'%20r='2.7'%20fill='%237E93FF'/%3E%3C/svg%3E" />
+
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- Apply theme before first paint to avoid a flash.
+       Saved choice wins; otherwise follow the visitor's OS preference. -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (!t && window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          t = "dark";
+        }
+        if (t) document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="nav" aria-label="Primary navigation">
+    <div class="nav__inner container">
+      <a class="nav__brand" href="#top" data-brand>Labid Al Nahiyan</a>
+      <nav class="nav__links" data-nav></nav>
+      <div class="nav__actions">
+        <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>◐</button>
+        <button class="nav__menu" type="button" aria-label="Toggle menu" aria-expanded="false" data-menu>☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- All sections are rendered here from data.txt -->
+    <div id="top" data-app>
+      <noscript>
+        <p class="container" style="padding: 4rem 1.5rem;">
+          This page needs JavaScript to load its content.
+          You can reach me at <a href="mailto:labid.nahiyan12@gmail.com">labid.nahiyan12@gmail.com</a>.
+        </p>
+      </noscript>
+    </div>
+  </main>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
