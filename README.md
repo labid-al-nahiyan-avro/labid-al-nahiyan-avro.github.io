@@ -1,71 +1,82 @@
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&duration=2500&pause=1000&color=8DABF7&background=33303000&multiline=true&width=435&lines=%F0%9F%91%8B+Hey+Nice+to+meet+you)](https://git.io/typing-svg)
+# Labid Al Nahiyan — Portfolio
 
-## 👋 About Me
+A fast, modular, static portfolio site. No build step, no frameworks — just open and edit.
 
-I am **Labid Al Nahiyan**, a Machine Learning Engineer and full-stack developer with a strong focus on building scalable AI systems and solving real-world problems.
+## How it's organized
 
-- 🎓 CSE @ BUET  
-- 🔬 Researching **Dense Crowd Tracking (Computer Vision)**  
-- 🧠 Working on **custom loss functions for detection & biometric systems**  
-- ⚙️ Building full-stack and AI-powered applications  
+```
+Portfolio/
+├── data.txt                # ← ALL your text lives here. Edit this. (plain text)
+├── index.html              # homepage shell
+├── case-study.html         # research case-study page (loads ?id=...)
+├── assets/
+│   ├── cv.pdf              # ← drop your CV here (named exactly cv.pdf)
+│   ├── css/
+│   │   ├── variables.css   # ← colors, fonts, spacing (theme control panel)
+│   │   ├── base.css        # resets & typography
+│   │   ├── layout.css      # nav, hero, sections, footer
+│   │   └── components.css  # cards, buttons, chips, animations
+│   └── js/
+│       ├── data-loader.js  # reads data.txt (don't edit)
+│       ├── render.js       # builds the page from your data (don't edit)
+│       └── animations.js   # gentle fade-in + active nav (visual only)
+└── README.md
+```
 
-📌 This is my new GitHub account. I lost access to my previous one.  
-👉 You can find my earlier work here:  
-🔗 https://github.com/labid-al-nahiyan
+## Editing your site
 
----
+**To change any text** (bio, projects, publications, links): open **`data.txt`** in any
+text editor and edit the text after each `KEY:`. That is the only file you need.
 
-## 🚀 Currently
+- Add an item (a project, paper, etc.) by copying one `[BLOCK]` section and editing it.
+- Remove an item by deleting its whole `[BLOCK]`.
+- Hide a link by leaving its value blank, e.g. `SCHOLAR:`
+- Keep each value on a single line (long lines are fine).
 
-- 🤖 Exploring and building **Agentic AI systems**  
-- ⚡ Improving real-world ML systems (biometrics, detection, optimization)  
+**To add your CV:** save your PDF as `assets/cv.pdf`.
 
----
+**To set your links:** fill in `SCHOLAR:` and `ORCID:` in `data.txt` when you have them.
 
-## 🌱 What I've Explored
+**To restyle:** open `assets/css/variables.css` and change `--accent`, the background
+colors, or the fonts. Everything updates automatically. Dark-mode values live in the same
+file.
 
-- 🧠 Competitive Programming (early foundation in problem solving)  
-- ☕ Object-Oriented Programming with Java & JavaFX  
-- 🗄️ Database systems using OracleDB  
-- 📚 Completed Andrew Ng’s Deep Learning Specialization  
-- 🌐 Full-stack development using **MERN & SvelteKit**  
+**To add a new research case study:** copy a `[RESEARCH]` block in `data.txt`, give it a
+unique `ID:`, and fill in the fields. The homepage card and its
+`case-study.html?id=...` page are generated for you.
 
----
+> Note: because the site reads `data.txt`, preview it with a local server (below) rather
+> than double-clicking `index.html`. On GitHub Pages it just works.
 
-## 🛠 Tech Stack
+## Preview locally
 
-<p>
- <img src="https://img.shields.io/badge/Tailwind_CSS-grey?style=for-the-badge&logo=tailwind-css&logoColor=38B2AC"></img>
- <img src="https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=for-the-badge"></img>
- <img src="https://shields.io/badge/react-black?logo=react&style=for-the-badge"></img>
- <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"></img>
- <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54"></img>
- <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"></img>
- <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white"></img>
- <img src="https://img.shields.io/badge/SvelteKit-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00"></img>
-</p>
+Open a terminal in this folder and run:
 
----
+```bash
+python3 -m http.server 8000
+```
 
-## 📊 GitHub Stats
+Then visit `http://localhost:8000`. (Opening `index.html` directly also works for most
+things, but a local server matches how it behaves when deployed.)
 
-<p align="center">
-  <img src="http://github-readme-streak-stats.herokuapp.com?user=labid-al-nahiyan-avro&theme=dark&background=000000" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=labid-al-nahiyan-avro&layout=compact&theme=dark" />
-</p>
+## Deploy free on GitHub Pages
 
----
+1. Create a repo named `labid-al-nahiyan.github.io` (use your exact GitHub username).
+2. Push these files to the `main` branch:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial portfolio"
+   git branch -M main
+   git remote add origin https://github.com/labid-al-nahiyan/labid-al-nahiyan.github.io.git
+   git push -u origin main
+   ```
+3. In the repo: **Settings → Pages → Source: Deploy from branch → main / root → Save.**
+4. Your site goes live at `https://labid-al-nahiyan.github.io` in ~1 minute.
 
-## 🎯 Focus
+To update later: edit `content.js`, then `git commit` and `git push`. Live in seconds.
 
-I am particularly interested in:
-- Computer Vision & Detection Systems  
-- Scalable Machine Learning Systems  
-- LLMs & Agentic Architectures  
-- Real-world AI deployment  
-
----
-
-## 🤝 Let’s Connect
-
-If you're working on something interesting in AI, ML, or systems — feel free to reach out or collaborate.
+## Accessibility & performance notes
+- Respects `prefers-reduced-motion` and `prefers-color-scheme`.
+- Skip link, focus styles, semantic landmarks, and screen-reader labels included.
+- No external dependencies except Google Fonts; everything else is local.
