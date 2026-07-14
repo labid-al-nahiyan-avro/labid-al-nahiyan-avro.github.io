@@ -41,29 +41,8 @@ ABOUT: A recurring thread across my work is designing evaluation and optimizatio
 ABOUT: I am applying to PhD programs to pursue this work in depth — building rigorous benchmarks and methods that help us understand when and why machine learning systems fail, and how to make them more trustworthy.
 
 
-# ============ MEASURED FACTS  (shown in the hero panel; up to 3 look best) ============
-# Each [STAT] is one readout. VALUE may include symbols/commas (e.g. -41%, 10,000);
-# any number inside it counts up on load. LABEL names it; NOTE is the source.
-# IMPORTANT: keep these [STAT] blocks BELOW all the plain KEY: lines above (NAME, ABOUT,
-# links, etc.) — a value line placed after a [BLOCK] is read as part of that block.
-# Delete a whole [STAT] block to remove it, or remove all three to hide the numbers.
-[STAT]
-VALUE: -41%
-LABEL: False Non-Match Rate
-NOTE: NIST MINEX III
-
-[STAT]
-VALUE: 10,000
-LABEL: paraphrase prompts
-NOTE: ParaGuard corpus
-
-[STAT]
-VALUE: 3
-LABEL: token-level metrics
-NOTE: Confusion Index · Rate · Depth
-
-
 # ============ NEWS  (newest first; one [NEWS] block per update) ============
+# The newest 2 also appear in the left sidebar under "Latest".
 # DATE is shown in the left column; TEXT is the update. LINK + LINKLABEL are
 # optional — they append a link at the end of the line. Delete a block to remove it.
 [NEWS]

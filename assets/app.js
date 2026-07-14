@@ -98,53 +98,59 @@
       linkPill("arXiv", d.ARXIV)
     ].join("");
 
-    // Instrument panel: just the framed portrait (measured facts live in
-    // their own band below the hero — see renderMeasures).
-    var instrument = d.PHOTO
-      ? '<aside class="instrument" aria-label="Portrait of ' + esc(d.NAME) + '">' +
-          '<div class="instrument__frame">' +
-            '<img class="instrument__photo" src="' + esc(d.PHOTO) + '" alt="Portrait of ' +
-            esc(d.NAME) + '" onerror="this.closest(\'.instrument\').remove()" />' +
-          "</div>" +
-        "</aside>"
-      : "";
-
+    // Portrait now lives in the left rail (see renderRail); the hero is a
+    // single comfortable text column.
     return el(
-      '<section class="hero container fade" id="home">' +
-        '<div class="hero__inner">' +
-          '<div class="hero__text">' +
-            '<p class="hero__role">' + esc(d.ROLE) + "</p>" +
-            "<h1>" + esc(d.NAME) + "</h1>" +
-            '<p class="hero__tagline">' + esc(d.TAGLINE) + "</p>" +
-            '<p class="hero__affiliation">' + esc(d.AFFILIATION) + "</p>" +
-            '<div class="hero__links">' + links + "</div>" +
-          "</div>" +
-          instrument +
+      '<section class="hero fade" id="home">' +
+        '<div class="hero__text">' +
+          '<p class="hero__role">' + esc(d.ROLE) + "</p>" +
+          "<h1>" + esc(d.NAME) + "</h1>" +
+          '<p class="hero__tagline">' + esc(d.TAGLINE) + "</p>" +
+          '<p class="hero__affiliation">' + esc(d.AFFILIATION) + "</p>" +
+          '<div class="hero__links">' + links + "</div>" +
         "</div>" +
       "</section>"
     );
   }
 
-  // Horizontal "measured facts" band that sits just under the hero.
-  function renderMeasures(d) {
-    var stats = asList(d.blocks && d.blocks.STAT);
-    if (!stats.length) return null;
-
-    var cells = stats.map(function (s) {
-      return (
-        '<div class="measure">' +
-          '<div class="measure__value" data-count>' + esc(s.VALUE) + "</div>" +
-          '<div class="measure__label">' + esc(s.LABEL) + "</div>" +
-          (s.NOTE ? '<div class="measure__note">' + esc(s.NOTE) + "</div>" : "") +
+  // Left rail: framed portrait + the two newest updates ("Latest").
+  // Standard scholar-site pattern — an author card that stays in view.
+  function renderRail(d) {
+    var photo = d.PHOTO
+      ? '<div class="instrument" aria-label="Portrait of ' + esc(d.NAME) + '">' +
+          '<div class="instrument__frame">' +
+            '<img class="instrument__photo" src="' + esc(d.PHOTO) + '" alt="Portrait of ' +
+            esc(d.NAME) + '" onerror="this.closest(\'.instrument\').remove()" />' +
+          "</div>" +
         "</div>"
-      );
-    }).join("");
+      : "";
 
-    return el(
-      '<section class="measures container fade" aria-label="Selected measures">' +
-        cells +
-      "</section>"
-    );
+    var news = asList(d.blocks && d.blocks.NEWS).slice(0, 2);
+    var latest = "";
+    if (news.length) {
+      var rows = news.map(function (n) {
+        var text = n.LINK
+          ? esc(n.TEXT) + ' <a href="' + esc(n.LINK) +
+            (n.LINK.indexOf("http") === 0 ? '" target="_blank" rel="noopener">' : '">') +
+            (esc(n.LINKLABEL) || "details") + "</a>"
+          : esc(n.TEXT);
+        return (
+          '<li class="latest__item">' +
+            '<span class="latest__date">' + esc(n.DATE) + "</span>" +
+            '<span class="latest__text">' + text + "</span>" +
+          "</li>"
+        );
+      }).join("");
+      latest =
+        '<div class="latest">' +
+          '<p class="eyebrow">Latest</p>' +
+          '<ul class="latest__list">' + rows + "</ul>" +
+          '<a class="latest__all" href="#news">All updates →</a>' +
+        "</div>";
+    }
+
+    if (!photo && !latest) return null;
+    return el('<aside class="rail" aria-label="At a glance">' + photo + latest + "</aside>");
   }
 
   function renderNews(items) {
@@ -549,43 +555,6 @@
     els.forEach(function (e) { io.observe(e); });
   }
 
-  // Count the hero's measured facts up from zero on load (the signature).
-  function setupCounters() {
-    var reduce = window.matchMedia &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var els = document.querySelectorAll("[data-count]");
-
-    els.forEach(function (elm) {
-      var raw = elm.textContent.trim();
-      var m = raw.match(/[\d,]*\d/); // first run of digits (commas allowed)
-      if (!m) return;
-      var target = parseInt(m[0].replace(/,/g, ""), 10);
-      if (isNaN(target) || target <= 0) return;
-      if (reduce) return; // honor reduced motion — leave the final value
-
-      var hadComma = m[0].indexOf(",") !== -1;
-      var prefix = raw.slice(0, m.index);
-      var suffix = raw.slice(m.index + m[0].length);
-      var fmt = function (n) {
-        return prefix + (hadComma ? n.toLocaleString("en-US") : String(n)) + suffix;
-      };
-
-      var dur = 1100, start = null;
-      elm.textContent = fmt(0);
-      requestAnimationFrame(function step(ts) {
-        if (start === null) start = ts;
-        var p = Math.min((ts - start) / dur, 1);
-        var eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
-        if (p < 1) {
-          elm.textContent = fmt(Math.round(eased * target));
-          requestAnimationFrame(step);
-        } else {
-          elm.textContent = raw; // restore the exact original string
-        }
-      });
-    });
-  }
-
   /* ============ 5. BOOT ============ */
   fetch("data.txt")
     .then(function (res) {
@@ -598,25 +567,29 @@
 
       setupMeta(d);
 
-      app.appendChild(renderHero(d));
-      var measures = renderMeasures(d);
-      if (measures) app.appendChild(measures);
-      if (d.ABOUT) app.appendChild(renderAbout(d));
-      if (d.blocks.NEWS) app.appendChild(renderNews(d.blocks.NEWS));
-      if (d.blocks.RESEARCH) app.appendChild(renderResearch(d.blocks.RESEARCH));
-      if (d.blocks.PUBLICATION) app.appendChild(renderPublications(d.blocks.PUBLICATION));
-      if (d.blocks.EXPERIENCE) app.appendChild(renderExperience(d.blocks.EXPERIENCE));
-      if (d.blocks.PROJECT) app.appendChild(renderProjects(d.blocks.PROJECT));
+      // Two-column shell: sticky left rail (portrait + latest) beside the
+      // main content flow. On narrow screens they stack, rail first.
+      var rail = renderRail(d);
+      if (rail) app.appendChild(rail);
+
+      var flow = el('<div class="flow"></div>');
+      flow.appendChild(renderHero(d));
+      if (d.ABOUT) flow.appendChild(renderAbout(d));
+      if (d.blocks.NEWS) flow.appendChild(renderNews(d.blocks.NEWS));
+      if (d.blocks.RESEARCH) flow.appendChild(renderResearch(d.blocks.RESEARCH));
+      if (d.blocks.PUBLICATION) flow.appendChild(renderPublications(d.blocks.PUBLICATION));
+      if (d.blocks.EXPERIENCE) flow.appendChild(renderExperience(d.blocks.EXPERIENCE));
+      if (d.blocks.PROJECT) flow.appendChild(renderProjects(d.blocks.PROJECT));
       if (d.blocks.EDUCATION || d.blocks.HONOR || d.blocks.SKILLS) {
-        app.appendChild(renderBackground(d));
+        flow.appendChild(renderBackground(d));
       }
+      app.appendChild(flow);
       document.body.appendChild(renderFooter(d));
 
       setupNav(d);
       setupScrollSpy();
       setupTheme();
       setupFadeIn();
-      setupCounters();
       setupPanel(d.blocks.RESEARCH || []);
     })
     .catch(function (err) {

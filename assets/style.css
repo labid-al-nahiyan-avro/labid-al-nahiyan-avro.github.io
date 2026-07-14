@@ -17,15 +17,15 @@
 
 /* ============ 1. TOKENS ============ */
 :root {
-  /* Cool research-paper neutrals */
-  --paper:      #f5f6f8;   /* page background */
+  /* Warm research-paper neutrals — a calmer, more comfortable page */
+  --paper:      #f6f5f2;   /* page background (warm off-white) */
   --surface:    #ffffff;   /* cards, panels */
-  --surface-2:  #fbfcfd;   /* inset wells */
-  --ink:        #15181f;   /* primary text */
-  --ink-2:      #474d59;   /* secondary text */
-  --ink-3:      #878d99;   /* metadata, captions */
-  --line:       #e2e6ec;   /* borders */
-  --line-2:     #edeff3;   /* faint inner rules */
+  --surface-2:  #faf9f6;   /* inset wells */
+  --ink:        #191a1d;   /* primary text (softer than pure black) */
+  --ink-2:      #4c4e56;   /* secondary text */
+  --ink-3:      #8a8b93;   /* metadata, captions */
+  --line:       #e7e4dd;   /* borders (softer, warmer) */
+  --line-2:     #efece5;   /* faint inner rules */
 
   /* One disciplined signal: ultramarine */
   --accent:        #2438b8;  /* text-safe accent (links, on paper) */
@@ -37,8 +37,9 @@
   --font-body:    "Newsreader", Georgia, "Times New Roman", serif;
   --font-mono:    "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-  --frame: 1040px;          /* outer measure (nav, hero, footer, grid) */
-  --read: 680px;            /* comfortable prose measure */
+  --frame: 1140px;          /* outer measure (nav, shell, footer) */
+  --rail: 300px;            /* left sidebar width */
+  --read: 660px;            /* comfortable prose measure */
   --radius: 12px;
   --radius-sm: 8px;
   --t: 180ms ease;
@@ -128,22 +129,32 @@ a:hover { border-bottom-color: var(--accent); }
   padding: 0 1.5rem;
 }
 
-section { scroll-margin-top: 4.75rem; }
+section { scroll-margin-top: 4.9rem; }
 
-/* Vertical rhythm + a visible hairline divider between major sections.
-   (ID specificity needed so these beat .container's padding shorthand.) */
-#top section + section {
-  margin-top: 4.5rem;
-  padding-top: 4.5rem;
+/* Two-column shell: a sticky left rail (portrait + latest) beside the
+   main content flow. The shell owns the outer width + padding. */
+#top {
+  max-width: var(--frame);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 5vw, 4.25rem) 1.5rem 0;
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 3.75rem);
+  align-items: start;
+}
+/* Sections still carry .container; inside the shell it owns width/padding,
+   so neutralize the per-section container. */
+#top .container { max-width: none; margin: 0; padding: 0; }
+
+.flow { min-width: 0; }
+
+/* Vertical rhythm + a soft hairline divider between sections in the flow. */
+.flow section + section {
+  margin-top: 5rem;
+  padding-top: 5rem;
   border-top: 1px solid var(--line);
 }
-/* The measures band hugs the hero — no divider above it. */
-#top section + section.measures {
-  margin-top: 1.75rem;
-  padding-top: 0;
-  border-top: none;
-}
-#top section:last-of-type { padding-bottom: 1.5rem; }
+.flow section:last-of-type { padding-bottom: 1.5rem; }
 
 /* Prose inside content sections gets a tighter measure than the frame */
 #about p,
@@ -237,14 +248,52 @@ section { scroll-margin-top: 4.75rem; }
 }
 .nav__menu { display: none; }
 
-/* ============ 5. HERO + INSTRUMENT (signature) ============ */
-.hero { padding: clamp(3rem, 7vw, 5.5rem) 0 1.5rem; }
-.hero__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(258px, 32%, 320px);
-  gap: clamp(2rem, 5vw, 3.5rem);
-  align-items: start;
+/* ============ 5. RAIL + HERO (signature) ============ */
+
+/* Sticky left rail — portrait + latest updates, in view as you scroll */
+.rail {
+  position: sticky;
+  top: 4.9rem;
+  align-self: start;
+  min-width: 0;              /* let the shell, not the image, size the rail */
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
 }
+
+/* Latest updates block */
+.latest .eyebrow { margin-bottom: 1rem; }
+.latest__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.05rem;
+}
+.latest__item { display: flex; flex-direction: column; gap: 0.2rem; }
+.latest__date {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+.latest__text {
+  font-size: 0.96rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.latest__all {
+  display: inline-block;
+  margin-top: 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--accent);
+  border: none;
+}
+.latest__all:hover { color: var(--accent-bright); }
+
+.hero { padding: 0.15rem 0 0.25rem; }
 .hero__text { min-width: 0; }
 .hero__role {
   font-family: var(--font-mono);
@@ -278,10 +327,12 @@ section { scroll-margin-top: 4.75rem; }
 
 /* Instrument panel — portrait framed as a readout + measured facts */
 .instrument {
+  max-width: 220px;
+  min-width: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  padding: 0.85rem 0.85rem 0.4rem;
+  padding: 0.7rem 0.7rem 0.35rem;
   box-shadow: 0 1px 2px rgba(21, 24, 31, 0.04), 0 14px 36px -22px rgba(21, 24, 31, 0.22);
 }
 .instrument__frame {
@@ -309,44 +360,6 @@ section { scroll-margin-top: 4.75rem; }
 }
 .instrument__frame::before { top: 7px; left: 7px; border-right: none; border-bottom: none; }
 .instrument__frame::after  { bottom: 7px; right: 7px; border-left: none; border-top: none; }
-
-/* Measured-facts band that sits just under the hero */
-.measures {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
-  overflow: hidden;
-}
-.measure {
-  padding: 1.35rem 1.6rem;
-  border-left: 1px solid var(--line-2);
-}
-.measure:first-child { border-left: none; }
-.measure__value {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: clamp(1.5rem, 3vw, 1.95rem);
-  line-height: 1;
-  color: var(--ink);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.015em;
-}
-.measure__label {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  color: var(--ink-2);
-  margin-top: 0.45rem;
-}
-.measure__note {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  margin-top: 0.25rem;
-}
 
 /* ============ 6. COMPONENTS ============ */
 
@@ -661,12 +674,22 @@ dl { margin: 0; }
 }
 
 /* ============ 10. RESPONSIVE ============ */
-@media (max-width: 860px) {
-  .hero__inner {
+@media (max-width: 900px) {
+  /* Collapse the shell — rail stacks above the hero, portrait beside latest */
+  #top {
     grid-template-columns: 1fr;
     gap: 2.25rem;
+    padding-top: clamp(1.75rem, 5vw, 2.5rem);
   }
-  .instrument { max-width: 360px; }
+  .rail {
+    position: static;
+    top: auto;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  .instrument { flex: 0 0 clamp(108px, 26vw, 156px); max-width: none; }
+  .latest { flex: 1 1 240px; }
 }
 
 @media (max-width: 640px) {
@@ -685,11 +708,12 @@ dl { margin: 0; }
   .nav__links.open { display: flex; }
   .nav__links a { padding: 0.6rem 0; font-size: 0.95rem; }
 
-  #top section + section { margin-top: 3.25rem; padding-top: 3.25rem; }
+  .flow section + section { margin-top: 3.5rem; padding-top: 3.5rem; }
 
-  .measures { grid-template-columns: 1fr; }
-  .measure { border-left: none; border-top: 1px solid var(--line-2); }
-  .measure:first-child { border-top: none; }
+  /* Small avatar beside latest on the smallest screens */
+  .rail { gap: 1.1rem; }
+  .instrument { flex: 0 0 104px; max-width: 104px; }
+  .latest { flex: 1 1 auto; min-width: 0; }
 
   .news__item { grid-template-columns: 1fr; gap: 0.15rem; }
   .news__date { padding-top: 0; }
