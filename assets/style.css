@@ -168,13 +168,18 @@ section { scroll-margin-top: 4.9rem; }
   padding: 0 clamp(1.5rem, 2.6vw, 2.75rem);
 }
 
-/* Vertical rhythm + a soft hairline divider between sections in the flow. */
-.flow section + section {
-  margin-top: 5.5rem;
-  padding-top: 5.5rem;
-  border-top: 1px solid var(--line);
+/* Each section closes with a hairline rule below it, then a gap before the
+   next section begins. */
+.flow section {
+  padding-bottom: 2.25rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 4rem;
 }
-.flow section:last-of-type { padding-bottom: 1.5rem; }
+.flow section:last-of-type {
+  padding-bottom: 0;
+  border-bottom: none;
+  margin-bottom: 1.5rem;
+}
 
 /* Prose inside content sections gets a tighter measure than the frame */
 #about p,
@@ -732,7 +737,7 @@ dl { margin: 0; }
   .nav__links.open { display: flex; }
   .nav__links a { padding: 0.6rem 0; font-size: 0.95rem; }
 
-  .flow section + section { margin-top: 3.25rem; padding-top: 3.25rem; }
+  .flow section { margin-bottom: 3rem; padding-bottom: 1.75rem; }
 
   /* Smaller portrait; recent news in a single column */
   .profile .instrument { max-width: 140px; }
