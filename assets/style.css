@@ -131,27 +131,40 @@ a:hover { border-bottom-color: var(--accent); }
 
 section { scroll-margin-top: 4.9rem; }
 
-/* Two-column shell: a sticky left rail (portrait + latest) beside the
-   main content flow. The shell owns the outer width + padding. */
+/* Three-column shell: sticky left profile (20%), scrollable middle flow
+   (~60%), sticky right "Recent" rail (20%). Only the middle scrolls with
+   the page; the side columns stay put and scroll internally if tall. */
 #top {
   max-width: var(--frame);
   margin: 0 auto;
-  padding: clamp(2.5rem, 5vw, 4.25rem) 1.5rem 0;
+  padding: clamp(1.75rem, 4vw, 3rem) 1.5rem 0;
   display: grid;
-  grid-template-columns: var(--rail) minmax(0, 1fr);
-  gap: clamp(2rem, 4vw, 3.75rem);
+  grid-template-columns: 20% minmax(0, 1fr) 20%;
+  grid-template-areas: "left main right";
+  gap: clamp(1.5rem, 3vw, 3rem);
   align-items: start;
 }
 /* Sections still carry .container; inside the shell it owns width/padding,
    so neutralize the per-section container. */
 #top .container { max-width: none; margin: 0; padding: 0; }
 
-.flow { min-width: 0; }
+.col-left  { grid-area: left; }
+.col-right { grid-area: right; }
+.col-left, .col-right {
+  position: sticky;
+  top: 4.9rem;
+  align-self: start;
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+  min-width: 0;
+  scrollbar-width: thin;
+}
+.flow { grid-area: main; min-width: 0; }
 
 /* Vertical rhythm + a soft hairline divider between sections in the flow. */
 .flow section + section {
-  margin-top: 5rem;
-  padding-top: 5rem;
+  margin-top: 4rem;
+  padding-top: 4rem;
   border-top: 1px solid var(--line);
 }
 .flow section:last-of-type { padding-bottom: 1.5rem; }
@@ -248,21 +261,29 @@ section { scroll-margin-top: 4.9rem; }
 }
 .nav__menu { display: none; }
 
-/* ============ 5. RAIL + HERO (signature) ============ */
+/* ============ 5. PROFILE + NEWS RAIL ============ */
 
-/* Sticky left rail — portrait + latest updates, in view as you scroll */
-.rail {
-  position: sticky;
-  top: 4.9rem;
-  align-self: start;
-  min-width: 0;              /* let the shell, not the image, size the rail */
+/* Left profile column — portrait + name + intro + links */
+.profile {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 1.1rem;
 }
+.profile .instrument { max-width: 100%; }
+.profile__name {
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  line-height: 1.1;
+  margin: 0;
+}
+.profile .hero__role { margin: 0; }
+.profile .hero__tagline { font-size: 1.02rem; line-height: 1.5; margin: 0; max-width: none; }
+.profile .hero__affiliation { margin: 0; }
+.profile .hero__links { margin-top: 0.35rem; gap: 0.45rem; }
 
-/* Latest updates block */
-.latest .eyebrow { margin-bottom: 1rem; }
+/* Right "Recent" news rail */
+.newsrail .eyebrow { margin-bottom: 1.1rem; }
+
+/* Shared compact update list (news rail) */
 .latest__list {
   list-style: none;
   margin: 0;
@@ -283,18 +304,6 @@ section { scroll-margin-top: 4.9rem; }
   line-height: 1.5;
   color: var(--ink-2);
 }
-.latest__all {
-  display: inline-block;
-  margin-top: 1.1rem;
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  color: var(--accent);
-  border: none;
-}
-.latest__all:hover { color: var(--accent-bright); }
-
-.hero { padding: 0.15rem 0 0.25rem; }
-.hero__text { min-width: 0; }
 .hero__role {
   font-family: var(--font-mono);
   font-size: 0.78rem;
@@ -304,7 +313,6 @@ section { scroll-margin-top: 4.9rem; }
   color: var(--accent);
   margin: 0 0 1rem;
 }
-.hero__text h1 { margin-bottom: 0.5rem; }
 .hero__tagline {
   font-size: 1.32rem;
   line-height: 1.5;
@@ -675,21 +683,29 @@ dl { margin: 0; }
 
 /* ============ 10. RESPONSIVE ============ */
 @media (max-width: 900px) {
-  /* Collapse the shell — rail stacks above the hero, portrait beside latest */
+  /* Collapse to one column: profile, then recent news, then content.
+     Side columns stop being sticky and scroll with the page. */
   #top {
     grid-template-columns: 1fr;
+    grid-template-areas: "left" "right" "main";
     gap: 2.25rem;
     padding-top: clamp(1.75rem, 5vw, 2.5rem);
   }
-  .rail {
+  .col-left, .col-right {
     position: static;
     top: auto;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 1.5rem;
+    max-height: none;
+    overflow: visible;
   }
-  .instrument { flex: 0 0 clamp(108px, 26vw, 156px); max-width: none; }
-  .latest { flex: 1 1 240px; }
+  /* Profile stays stacked, with a modest portrait (not full width) */
+  .profile { align-items: flex-start; }
+  .profile .instrument { max-width: 168px; }
+  /* Recent news as a wrapping row of updates */
+  .newsrail .latest__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.1rem 1.75rem;
+  }
 }
 
 @media (max-width: 640px) {
@@ -708,15 +724,11 @@ dl { margin: 0; }
   .nav__links.open { display: flex; }
   .nav__links a { padding: 0.6rem 0; font-size: 0.95rem; }
 
-  .flow section + section { margin-top: 3.5rem; padding-top: 3.5rem; }
+  .flow section + section { margin-top: 3.25rem; padding-top: 3.25rem; }
 
-  /* Small avatar beside latest on the smallest screens */
-  .rail { gap: 1.1rem; }
-  .instrument { flex: 0 0 104px; max-width: 104px; }
-  .latest { flex: 1 1 auto; min-width: 0; }
-
-  .news__item { grid-template-columns: 1fr; gap: 0.15rem; }
-  .news__date { padding-top: 0; }
+  /* Smaller portrait; recent news in a single column */
+  .profile .instrument { max-width: 140px; }
+  .newsrail .latest__list { grid-template-columns: 1fr; }
 
   .card { padding: 1.35rem 1.3rem; }
   .card__title { padding-right: 0; }

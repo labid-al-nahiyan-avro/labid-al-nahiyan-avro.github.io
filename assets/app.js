@@ -86,7 +86,9 @@
 
   /* ============ 3. SECTION RENDERERS ============ */
 
-  function renderHero(d) {
+  // Left column: framed portrait + name + basic intro + links.
+  // Sticky on desktop — the identity panel that stays in view.
+  function renderProfile(d) {
     var links = [
       linkPill("Email", d.EMAIL ? "mailto:" + d.EMAIL : ""),
       linkPill("CV", d.CV, true),
@@ -98,24 +100,6 @@
       linkPill("arXiv", d.ARXIV)
     ].join("");
 
-    // Portrait now lives in the left rail (see renderRail); the hero is a
-    // single comfortable text column.
-    return el(
-      '<section class="hero fade" id="home">' +
-        '<div class="hero__text">' +
-          '<p class="hero__role">' + esc(d.ROLE) + "</p>" +
-          "<h1>" + esc(d.NAME) + "</h1>" +
-          '<p class="hero__tagline">' + esc(d.TAGLINE) + "</p>" +
-          '<p class="hero__affiliation">' + esc(d.AFFILIATION) + "</p>" +
-          '<div class="hero__links">' + links + "</div>" +
-        "</div>" +
-      "</section>"
-    );
-  }
-
-  // Left rail: framed portrait + the two newest updates ("Latest").
-  // Standard scholar-site pattern — an author card that stays in view.
-  function renderRail(d) {
     var photo = d.PHOTO
       ? '<div class="instrument" aria-label="Portrait of ' + esc(d.NAME) + '">' +
           '<div class="instrument__frame">' +
@@ -125,35 +109,21 @@
         "</div>"
       : "";
 
-    var news = asList(d.blocks && d.blocks.NEWS).slice(0, 2);
-    var latest = "";
-    if (news.length) {
-      var rows = news.map(function (n) {
-        var text = n.LINK
-          ? esc(n.TEXT) + ' <a href="' + esc(n.LINK) +
-            (n.LINK.indexOf("http") === 0 ? '" target="_blank" rel="noopener">' : '">') +
-            (esc(n.LINKLABEL) || "details") + "</a>"
-          : esc(n.TEXT);
-        return (
-          '<li class="latest__item">' +
-            '<span class="latest__date">' + esc(n.DATE) + "</span>" +
-            '<span class="latest__text">' + text + "</span>" +
-          "</li>"
-        );
-      }).join("");
-      latest =
-        '<div class="latest">' +
-          '<p class="eyebrow">Latest</p>' +
-          '<ul class="latest__list">' + rows + "</ul>" +
-          '<a class="latest__all" href="#news">All updates →</a>' +
-        "</div>";
-    }
-
-    if (!photo && !latest) return null;
-    return el('<aside class="rail" aria-label="At a glance">' + photo + latest + "</aside>");
+    return el(
+      '<aside class="col-left profile fade" id="home">' +
+        photo +
+        '<p class="hero__role">' + esc(d.ROLE) + "</p>" +
+        '<h1 class="profile__name">' + esc(d.NAME) + "</h1>" +
+        '<p class="hero__tagline">' + esc(d.TAGLINE) + "</p>" +
+        '<p class="hero__affiliation">' + esc(d.AFFILIATION) + "</p>" +
+        '<div class="hero__links">' + links + "</div>" +
+      "</aside>"
+    );
   }
 
-  function renderNews(items) {
+  // Right column: the full "Recent" news list. Sticky on desktop.
+  function renderNewsRail(items) {
+    if (!items.length) return null;
     var rows = items.map(function (n) {
       var text = n.LINK
         ? esc(n.TEXT) + ' <a href="' + esc(n.LINK) +
@@ -161,18 +131,18 @@
           (esc(n.LINKLABEL) || "details") + "</a>"
         : esc(n.TEXT);
       return (
-        '<li class="news__item">' +
-          '<span class="news__date">' + esc(n.DATE) + "</span>" +
-          '<span class="news__text">' + text + "</span>" +
+        '<li class="latest__item">' +
+          '<span class="latest__date">' + esc(n.DATE) + "</span>" +
+          '<span class="latest__text">' + text + "</span>" +
         "</li>"
       );
     }).join("");
 
     return el(
-      '<section class="container fade" id="news">' +
-        sectionHead("Recent", "News") +
-        '<ul class="news">' + rows + "</ul>" +
-      "</section>"
+      '<aside class="col-right newsrail fade" aria-label="Recent news">' +
+        '<p class="eyebrow">Recent</p>' +
+        '<ul class="latest__list">' + rows + "</ul>" +
+      "</aside>"
     );
   }
 
@@ -423,7 +393,6 @@
   // Section labels + anchors for the top nav. Edit/reorder these to match
   // the sections you keep in data.txt — this is the one place nav lives.
   var NAV_ITEMS = [
-    ["News", "#news"],
     ["Research", "#research"],
     ["Publications", "#publications"],
     ["Experience", "#experience"],
@@ -567,15 +536,13 @@
 
       setupMeta(d);
 
-      // Two-column shell: sticky left rail (portrait + latest) beside the
-      // main content flow. On narrow screens they stack, rail first.
-      var rail = renderRail(d);
-      if (rail) app.appendChild(rail);
+      // Three-column shell: sticky left profile (photo + intro), a
+      // scrollable middle content flow, and a sticky right "Recent" news
+      // rail. On narrow screens the columns stack: profile, news, content.
+      app.appendChild(renderProfile(d));
 
       var flow = el('<div class="flow"></div>');
-      flow.appendChild(renderHero(d));
       if (d.ABOUT) flow.appendChild(renderAbout(d));
-      if (d.blocks.NEWS) flow.appendChild(renderNews(d.blocks.NEWS));
       if (d.blocks.RESEARCH) flow.appendChild(renderResearch(d.blocks.RESEARCH));
       if (d.blocks.PUBLICATION) flow.appendChild(renderPublications(d.blocks.PUBLICATION));
       if (d.blocks.EXPERIENCE) flow.appendChild(renderExperience(d.blocks.EXPERIENCE));
@@ -584,6 +551,10 @@
         flow.appendChild(renderBackground(d));
       }
       app.appendChild(flow);
+
+      var newsrail = renderNewsRail(asList(d.blocks && d.blocks.NEWS));
+      if (newsrail) app.appendChild(newsrail);
+
       document.body.appendChild(renderFooter(d));
 
       setupNav(d);
