@@ -171,9 +171,9 @@ section { scroll-margin-top: 4.9rem; }
 /* Each section closes with a hairline rule below it, then a gap before the
    next section begins. */
 .flow section {
-  padding-bottom: 2.25rem;
+  padding-bottom: 2.25rem;         /* space between content and the rule */
   border-bottom: 1px solid var(--line);
-  margin-bottom: 4rem;
+  margin-bottom: 4.5rem;           /* single control for the gap after the rule */
 }
 .flow section:last-of-type {
   padding-bottom: 0;
