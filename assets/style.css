@@ -37,8 +37,8 @@
   --font-body:    "Newsreader", Georgia, "Times New Roman", serif;
   --font-mono:    "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-  --frame: 1140px;          /* outer measure (nav, shell, footer) */
-  --rail: 300px;            /* left sidebar width */
+  --frame: 1440px;          /* outer measure (nav, shell, footer) */
+  --side: 240px;            /* left + right sticky column width */
   --read: 660px;            /* comfortable prose measure */
   --radius: 12px;
   --radius-sm: 8px;
@@ -139,9 +139,9 @@ section { scroll-margin-top: 4.9rem; }
   margin: 0 auto;
   padding: clamp(1.75rem, 4vw, 3rem) 1.5rem 0;
   display: grid;
-  grid-template-columns: 20% minmax(0, 1fr) 20%;
+  grid-template-columns: var(--side) minmax(0, 1fr) var(--side);
   grid-template-areas: "left main right";
-  gap: clamp(1.5rem, 3vw, 3rem);
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
   align-items: start;
 }
 /* Sections still carry .container; inside the shell it owns width/padding,
@@ -159,7 +159,14 @@ section { scroll-margin-top: 4.9rem; }
   min-width: 0;
   scrollbar-width: thin;
 }
-.flow { grid-area: main; min-width: 0; }
+.flow {
+  grid-area: main;
+  min-width: 0;
+  /* Vertical column rules separating the middle from both side columns */
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  padding: 0 clamp(1.5rem, 2.6vw, 2.75rem);
+}
 
 /* Vertical rhythm + a soft hairline divider between sections in the flow. */
 .flow section + section {
@@ -697,6 +704,7 @@ dl { margin: 0; }
     max-height: none;
     overflow: visible;
   }
+  .flow { border: none; padding: 0; }
   /* Profile stays stacked, with a modest portrait (not full width) */
   .profile { align-items: flex-start; }
   .profile .instrument { max-width: 168px; }

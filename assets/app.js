@@ -185,7 +185,7 @@
 
       var more = hasDetails(r)
         ? '<button class="card__more" type="button" data-research="' + i + '">' +
-          "Read the full story →</button>"
+          "Read the full story</button>"
         : "";
 
       return (
