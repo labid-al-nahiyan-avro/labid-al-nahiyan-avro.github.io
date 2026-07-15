@@ -89,7 +89,7 @@
     var cls = "pill pill--icon" + (accent ? " pill--accent" : "");
     var ext = href.indexOf("http") === 0 ? ' target="_blank" rel="noopener"' : "";
     return '<a class="' + cls + '" href="' + esc(href) + '"' + ext +
-      ' aria-label="' + esc(label) + '" title="' + esc(label) + '">' + ICONS[icon] + "</a>";
+      ' aria-label="' + esc(label) + '" data-tip="' + esc(label) + '">' + ICONS[icon] + "</a>";
   }
 
   // A mono eyebrow that names a section's role, followed by its title.

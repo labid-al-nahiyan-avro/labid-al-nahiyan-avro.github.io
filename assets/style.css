@@ -410,11 +410,37 @@ section { scroll-margin-top: 4.9rem; }
 
 /* Icon-only circular link buttons (profile socials) */
 .pill--icon {
+  position: relative;
   width: 2.6rem;
   height: 2.6rem;
   padding: 0;
   justify-content: center;
   border-bottom: 1px solid var(--line);   /* override the link underline */
+}
+/* Hover tooltip */
+.pill--icon::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translate(-50%, 0.25rem);
+  padding: 0.32rem 0.55rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--t), transform var(--t);
+  z-index: 20;
+}
+.pill--icon:hover::after,
+.pill--icon:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 .pill--icon:hover { border-bottom-color: var(--accent); }
 .pill--icon.pill--accent { border-bottom-color: var(--accent-bright); }
