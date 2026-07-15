@@ -17,15 +17,11 @@
   <link rel="stylesheet" href="assets/style.css" />
 
   <!-- Apply theme before first paint to avoid a flash.
-       Saved choice wins; otherwise follow the visitor's OS preference. -->
+       Light is the default; dark applies only if the visitor chose it. -->
   <script>
     (function () {
       try {
         var t = localStorage.getItem("theme");
-        if (!t && window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          t = "dark";
-        }
         if (t) document.documentElement.setAttribute("data-theme", t);
       } catch (e) {}
     })();

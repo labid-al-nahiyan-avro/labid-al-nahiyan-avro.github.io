@@ -59,7 +59,13 @@ LINKLABEL:
 
 [NEWS]
 DATE: Mar 2025
-TEXT: Completed my BSc in CSE at BUET and defended my thesis on a contextually appropriate loss for dense crowd tracking.
+TEXT: Completed my BSc in CSE at BUET.
+LINK:
+LINKLABEL:
+
+[NEWS]
+DATE: Feb 2025
+TEXT: Defended my undergraduate thesis: "A Contextually Appropriate Loss Function for Dense Crowd Tracking"
 LINK:
 LINKLABEL:
 
