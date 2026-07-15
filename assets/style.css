@@ -172,7 +172,6 @@ section { scroll-margin-top: 4.9rem; }
    next section begins. */
 .flow section {
   padding-bottom: 2.25rem;         /* space between content and the rule */
-  border-bottom: 1px solid var(--line);
   margin-bottom: 4.5rem;           /* single control for the gap after the rule */
 }
 .flow section:last-of-type {
@@ -187,7 +186,7 @@ section { scroll-margin-top: 4.9rem; }
 .hero__tagline { max-width: var(--read); }
 
 /* Section head: a mono eyebrow that names the section's role, then the title */
-.section-head { margin-bottom: 2rem; }
+.section-head { margin-top:2.5rem; margin-bottom:0.5rem; }
 .eyebrow {
   display: flex;
   align-items: center;
@@ -198,7 +197,7 @@ section { scroll-margin-top: 4.9rem; }
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
-  margin: 0 0 0.7rem;
+  margin: 0;
 }
 .eyebrow::before {
   content: "";
@@ -409,6 +408,23 @@ section { scroll-margin-top: 4.9rem; }
 }
 .pill--accent:hover { color: #fff; background: var(--accent); border-color: var(--accent); }
 
+/* Icon-only circular link buttons (profile socials) */
+.pill--icon {
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0;
+  justify-content: center;
+  border-bottom: 1px solid var(--line);   /* override the link underline */
+}
+.pill--icon:hover { border-bottom-color: var(--accent); }
+.pill--icon.pill--accent { border-bottom-color: var(--accent-bright); }
+.pill--icon.pill--accent:hover { border-bottom-color: var(--accent); }
+.pill--icon svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  display: block;
+}
+
 /* Research cards */
 .card {
   position: relative;
@@ -556,9 +572,9 @@ section { scroll-margin-top: 4.9rem; }
 /* Publications — numbered citation ledger (order = recency, real sequence) */
 .pub {
   display: grid;
-  grid-template-columns: 2rem 1fr;
-  gap: 0 0.5rem;
-  padding: 1.15rem 0;
+  grid-template-columns: 5% 80% 15%;
+  gap: 0 0.25rem 0.25rem;
+  padding: 0.5rem 0;
   border-bottom: 1px solid var(--line-2);
 }
 .pub:last-child { border-bottom: none; }
