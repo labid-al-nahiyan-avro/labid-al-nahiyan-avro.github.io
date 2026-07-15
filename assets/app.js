@@ -292,17 +292,26 @@
   function renderBackground(d) {
     var rows = "";
 
-    asList(d.blocks.EDUCATION).forEach(function (e) {
-      rows +=
-        '<div class="row"><dt>Education</dt><dd>' + esc(e.SCHOOL) +
-        '<br><span class="sub">' + esc(e.DEGREE) + " · " + esc(e.DATE) + "</span></dd></div>";
-    });
+    // One row per category; repeated entries (honors, degrees) stack under a
+    // single label instead of repeating the label each time.
+    function groupRow(label, items) {
+      if (!items.length) return "";
+      var body = items.length > 1
+        ? '<div class="stack">' + items.join("") + "</div>"
+        : items[0];
+      return '<div class="row"><dt>' + esc(label) + "</dt><dd>" + body + "</dd></div>";
+    }
 
-    asList(d.blocks.HONOR).forEach(function (h) {
-      rows +=
-        '<div class="row"><dt>Honor</dt><dd>' + esc(h.TITLE) +
-        '<br><span class="sub">' + esc(h.DETAIL) + "</span></dd></div>";
-    });
+    rows += groupRow("Education", asList(d.blocks.EDUCATION).map(function (e) {
+      return '<div class="stack__item">' + esc(e.SCHOOL) +
+        '<span class="sub">' + esc(e.DEGREE) + " · " + esc(e.DATE) + "</span></div>";
+    }));
+
+    rows += groupRow(asList(d.blocks.HONOR).length > 1 ? "Honors" : "Honor",
+      asList(d.blocks.HONOR).map(function (h) {
+        return '<div class="stack__item">' + esc(h.TITLE) +
+          '<span class="sub">' + esc(h.DETAIL) + "</span></div>";
+      }));
 
     asList(d.blocks.SKILLS).forEach(function (s) {
       rows +=

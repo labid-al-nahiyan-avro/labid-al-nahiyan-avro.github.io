@@ -696,6 +696,8 @@ section { scroll-margin-top: 4.9rem; }
   padding: 0.85rem 0;
   border-bottom: 1px solid var(--line-2);
 }
+/* Multiple entries under one label (e.g. honors, degrees) */
+.stack { display: flex; flex-direction: column; gap: 0.8rem; }
 .row:last-child { border-bottom: none; }
 .row dt {
   font-family: var(--font-mono);
