@@ -172,14 +172,20 @@ GROUP: Tools & infrastructure
 ITEMS: Docker, Linux (Ubuntu), Git / GitHub, PostgreSQL, Postman
 
 
-# ============ HONORS ============
+# ============ HONORS & AWARDS ============
+# TAG = a short category shown as a pill on the right (optional).
+# YEAR = shown under the pill (optional). DETAIL = muted subtitle line.
 [HONOR]
 TITLE: Champion — OpenAPI Hackathon
-DETAIL: 11th National ICT Fest 2024 (IUT)
+DETAIL: 11th National ICT Fest (IUT)
+TAG: Hackathon
+YEAR: 2024
 
 [HONOR]
-TITLE: 7th place — SEC Inter-University Junior Programming Contest 2022
+TITLE: 7th place — SEC Inter-University Junior Programming Contest
 DETAIL: Team: BUET Fast & Furious
+TAG: Programming Contest
+YEAR: 2022
 
 
 # ============ EDUCATION ============

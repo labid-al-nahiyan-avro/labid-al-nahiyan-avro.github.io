@@ -289,41 +289,73 @@
     );
   }
 
-  function renderBackground(d) {
-    var rows = "";
-
-    // One row per category; repeated entries (honors, degrees) stack under a
-    // single label instead of repeating the label each time.
-    function groupRow(label, items) {
-      if (!items.length) return "";
-      var body = items.length > 1
-        ? '<div class="stack">' + items.join("") + "</div>"
-        : items[0];
-      return '<div class="row"><dt>' + esc(label) + "</dt><dd>" + body + "</dd></div>";
-    }
-
-    rows += groupRow("Education", asList(d.blocks.EDUCATION).map(function (e) {
-      return '<div class="stack__item">' + esc(e.SCHOOL) +
-        '<span class="sub">' + esc(e.DEGREE) + " · " + esc(e.DATE) + "</span></div>";
-    }));
-
-    
-    asList(d.blocks.SKILLS).forEach(function (s) {
-      rows +=
-        '<div class="row"><dt>' + esc(s.GROUP) + "</dt><dd>" + esc(s.ITEMS) + "</dd></div>";
-    });
-
-    rows += groupRow(asList(d.blocks.HONOR).length > 1 ? "Honors" : "Honor",
-      asList(d.blocks.HONOR).map(function (h) {
-        return '<div class="stack__item">' + esc(h.TITLE) +
-          '<span class="sub">' + esc(h.DETAIL) + "</span></div>";
-      }));
-
+  // Honors & Awards — a row card per honor: title + detail on the left, an
+  // optional category badge and year on the right.
+  function renderHonors(items) {
+    var rows = items.map(function (h) {
+      var meta = "";
+      if (h.TAG || h.YEAR) {
+        meta =
+          '<div class="honor__meta">' +
+            (h.TAG ? '<span class="badge">' + esc(h.TAG) + "</span>" : "") +
+            (h.YEAR ? '<span class="honor__year">' + esc(h.YEAR) + "</span>" : "") +
+          "</div>";
+      }
+      return (
+        '<div class="honor">' +
+          '<div class="honor__main">' +
+            '<h3 class="honor__title">' + esc(h.TITLE) + "</h3>" +
+            (h.DETAIL ? '<p class="honor__detail">' + esc(h.DETAIL) + "</p>" : "") +
+          "</div>" +
+          meta +
+        "</div>"
+      );
+    }).join("");
 
     return el(
-      '<section class="container fade" id="background">' +
-        sectionHead("Education · skills · honors", "Background") +
-        "<dl>" + rows + "</dl>" +
+      '<section class="container fade" id="honors">' +
+        sectionHead("Recognition", "Honors & awards") +
+        '<div class="honors">' + rows + "</div>" +
+      "</section>"
+    );
+  }
+
+  // Technical Skills — one card with labelled subgroups, each a row of pills.
+  function renderSkills(items) {
+    var groups = items.map(function (s) {
+      var tags = asList(s.ITEMS ? s.ITEMS.split(",") : []).map(function (t) {
+        return '<span class="tag">' + esc(t.trim()) + "</span>";
+      }).join("");
+      return (
+        '<div class="skillgroup">' +
+          '<div class="skillgroup__label">' + esc(s.GROUP) + "</div>" +
+          '<div class="skillgroup__tags">' + tags + "</div>" +
+        "</div>"
+      );
+    }).join("");
+
+    return el(
+      '<section class="container fade" id="skills">' +
+        sectionHead("What I work with", "Technical skills") +
+        '<div class="skills-card">' + groups + "</div>" +
+      "</section>"
+    );
+  }
+
+  // Education — grouped rows (one label, degrees stack beneath).
+  function renderEducation(items) {
+    var stacked = items.map(function (e) {
+      return '<div class="stack__item">' + esc(e.SCHOOL) +
+        '<span class="sub">' + esc(e.DEGREE) + " · " + esc(e.DATE) + "</span></div>";
+    });
+    var body = stacked.length > 1
+      ? '<div class="stack">' + stacked.join("") + "</div>"
+      : (stacked[0] || "");
+
+    return el(
+      '<section class="container fade" id="education">' +
+        sectionHead("Background", "Education") +
+        '<dl><div class="row"><dt>Education</dt><dd>' + body + "</dd></div></dl>" +
       "</section>"
     );
   }
@@ -423,7 +455,9 @@
     ["Publications", "#publications"],
     ["Experience", "#experience"],
     ["Projects", "#projects"],
-    ["Background", "#background"]
+    ["Honors", "#honors"],
+    ["Skills", "#skills"],
+    ["Education", "#education"]
   ];
 
   function setupNav(d) {
@@ -573,9 +607,9 @@
       if (d.blocks.PUBLICATION) flow.appendChild(renderPublications(d.blocks.PUBLICATION));
       if (d.blocks.EXPERIENCE) flow.appendChild(renderExperience(d.blocks.EXPERIENCE));
       if (d.blocks.PROJECT) flow.appendChild(renderProjects(d.blocks.PROJECT));
-      if (d.blocks.EDUCATION || d.blocks.HONOR || d.blocks.SKILLS) {
-        flow.appendChild(renderBackground(d));
-      }
+      if (d.blocks.HONOR) flow.appendChild(renderHonors(d.blocks.HONOR));
+      if (d.blocks.SKILLS) flow.appendChild(renderSkills(d.blocks.SKILLS));
+      if (d.blocks.EDUCATION) flow.appendChild(renderEducation(d.blocks.EDUCATION));
       app.appendChild(flow);
 
       var newsrail = renderNewsRail(asList(d.blocks && d.blocks.NEWS));
