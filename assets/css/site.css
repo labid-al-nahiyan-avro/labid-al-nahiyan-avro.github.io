@@ -981,6 +981,29 @@ html.intro-done .intro { display: none; }
   text-decoration-skip-ink: auto;
 }
 
+/* A MARKED LINK — `**[TigerIT](https://tigerit.com/)**`. Bold from the mark,
+   clickable from the link, and ONE underline between them.
+
+   `.link` draws its own rule as a background gradient, which would sit a
+   couple of pixels under the mark's `text-decoration` and read as a double
+   rule rather than as a thicker one. The gradient goes; the mark's rule stays,
+   because it is the one that already lifts around descenders.
+
+   Colour stays `--ink` rather than taking the link accent. In `#top` the accent
+   is the near-neutral grey of the seven, so an accented link would come out
+   *lighter* than the plain marks beside it — a link reading as less important
+   than the words around it is exactly backwards. It takes the accent on hover,
+   which is where the affordance belongs. */
+.mark .link {
+  color: inherit;
+  background-image: none;
+  font-weight: inherit;
+}
+.mark:has(.link:hover) {
+  text-decoration-color: var(--accent);
+}
+.mark .link:hover { color: var(--accent); }
+
 /* The one line a PhD admissions reader is looking for, and so the only
    outlined box in the first viewport. Green regardless of the section's
    accent: this line means one thing and should always look the same. It is

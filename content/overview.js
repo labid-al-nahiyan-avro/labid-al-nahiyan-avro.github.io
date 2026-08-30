@@ -37,7 +37,7 @@ export const overview = {
   /* One sentence, and the only part of this file still rendered. What you
      work on, not what you are called. It sits above the bio as a lede. */
   statement:
-    "I work on the security and reliability of machine learning systems people are already deployed against — biometric matchers, and models that decide what a request is allowed to do.",
+    "I work on making machine learning systems secure and reliable once they are deployed — hard to break, fool or misuse, not just accurate on a benchmark.",
 
   /* The four hardest facts on the site, in the order a committee reads them.
      `from` is not rendered; it is there so the next person can check. */

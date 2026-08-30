@@ -396,43 +396,78 @@ function icon(name) {
 
 /* ---------- 01 profile ---------- */
 
-/** Turns "{photography|behind a camera}" into a link, or into plain text
- *  when there are no photographs to show yet. */
 /**
- * The bio's two bits of markup, both matched by one pass so they can appear in
- * either order and neither can swallow the other:
+ * The bio's three bits of markup:
  *
- *     {photography|behind a camera}   a link to the photography page
+ *     [BUET](https://buet.ac.bd)      a link — any URL, or a local path
  *     **objective design**            a marked phrase — bold, underlined
+ *     {photography|behind a camera}   the photography page, specifically
  *
- * `**…**` is deliberately the markdown spelling rather than another
- * brace form. It is the one emphasis syntax everybody already knows, and the
- * bio is the file a non-programmer is most likely to edit.
+ * The first two are the markdown spellings on purpose rather than more brace
+ * forms. They are the syntaxes everybody already knows, and the bio is the file
+ * a non-programmer is most likely to edit.
  *
- * WHAT DESERVES A MARK. Where you work, where you studied, the idea your work
- * is actually about, and what you are asking for. Not adjectives, and not more
- * than a handful — the marks are a path through the paragraph for someone
+ * THEY NEST, AND THAT WAS NOT TRUE AT FIRST.
+ *
+ *     **[TigerIT](https://tigerit.com/)**
+ *
+ * is the obvious thing to write for a link that should also be bold, and the
+ * first version of this parser matched the `**` in one flat pass, took
+ * everything between the stars as literal text, and printed the brackets and
+ * the URL onto the page. Anyone marking a link would hit it immediately.
+ *
+ * `parseInline` is recursive for that reason. It terminates because the inner
+ * pattern of each form excludes its own delimiter — `[^*]+` inside `**…**` and
+ * `[^\]]+` inside `[…]` — so nothing can contain another copy of itself.
+ *
+ * A LINK OPENS IN A NEW TAB ONLY IF IT LEAVES THE SITE. `https://…` gets
+ * `target="_blank"` and `rel="noopener"`; `assets/cv.pdf` or `photography.html`
+ * does not, because taking over the tab is correct for your own pages and rude
+ * for someone else's.
+ *
+ * WHAT DESERVES A MARK. Where you studied, the idea your work is actually
+ * about, what has landed, and what you are asking for. Not adjectives, and not
+ * more than a handful — the marks are a path through the paragraph for someone
  * skimming it, and a paragraph where six things are important has nothing
  * important in it.
  */
-function bioParagraph(text) {
-  const p = h("p", {});
-  const pattern = /\{([a-z-]+)\|([^}]+)\}|\*\*([^*]+)\*\*/g;
+const BIO_PATTERN =
+  /\{([a-z-]+)\|([^}]+)\}|\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*/;
+
+function parseInline(text) {
+  /* A FRESH REGEX PER CALL. A shared /g regex carries `lastIndex` between
+     calls, so a recursive parse re-entering it would resume from wherever the
+     outer scan had reached and silently drop the start of the inner string. */
+  const pattern = new RegExp(BIO_PATTERN.source, "g");
+  const nodes = [];
   let cursor = 0;
   let match;
 
   while ((match = pattern.exec(text)) !== null) {
-    if (match.index > cursor) p.append(text.slice(cursor, match.index));
+    if (match.index > cursor) nodes.push(text.slice(cursor, match.index));
 
-    const [, target, label, marked] = match;
+    const [, target, label, linkText, href, marked] = match;
 
     if (marked !== undefined) {
-      p.append(h("strong", { class: "mark", text: marked }));
+      nodes.push(h("strong", { class: "mark" }, parseInline(marked)));
+    } else if (href !== undefined) {
+      const external = /^https?:/i.test(href);
+      nodes.push(
+        h(
+          "a",
+          {
+            class: "link",
+            href,
+            ...(external ? { target: "_blank", rel: "noopener" } : {}),
+          },
+          parseInline(linkText)
+        )
+      );
     } else if (target === "photography") {
       /* Always a link now. The page carries its own empty state, and the
          request was for photography to be discoverable from the bio rather
          than conditional on there being albums yet. */
-      p.append(
+      nodes.push(
         h(
           "a",
           { class: "link--aside", href: "photography.html" },
@@ -441,13 +476,17 @@ function bioParagraph(text) {
         )
       );
     } else {
-      p.append(label);
+      nodes.push(label);
     }
     cursor = match.index + match[0].length;
   }
 
-  if (cursor < text.length) p.append(text.slice(cursor));
-  return p;
+  if (cursor < text.length) nodes.push(text.slice(cursor));
+  return nodes;
+}
+
+function bioParagraph(text) {
+  return h("p", {}, parseInline(text));
 }
 
 /**
