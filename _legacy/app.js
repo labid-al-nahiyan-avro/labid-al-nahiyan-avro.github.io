@@ -85,7 +85,7 @@
   
 
   // A circular icon button linking out. aria-label + title keep it accessible.
-  function iconPill(label, href, icon, accen  t) {
+  function iconPill(label, href, icon, accent) {
     if (!href) return "";
     var cls = "pill pill--icon" + (accent ? " pill--accent" : "");
     var ext = href.indexOf("http") === 0 ? ' target="_blank" rel="noopener"' : "";

@@ -38,13 +38,31 @@ export const experience = {
       },
 
       points: [
-        "Team submission currently ranked 5th on NIST MINEX III. My part is the data preparation and the model training; the submission itself was handled by colleagues.",
+        "Team submission currently ranked 5th on NIST MINEX III. My part is the data preparation and the model training and evaluate metrics.",
         "Cut the False Non-Match Rate 41% on that benchmark by optimizing the minutiae-based template generator and matching pipeline.",
         "Engineered a custom loss for non-linear elastic distortion and rotational variance — the two failure modes that dominate real fingerprint capture.",
         "Engineered multi-GPU distributed training in PyTorch: memory scaling on an 800K+ class output layer, duplicated forward passes, host out-of-memory crashes.",
         "Built the cross-language production pipeline, tracing coordinate-transform and rotation-angle bugs across the C++/managed boundary and shipping reproducible builds.",
       ],
-      technologies: ["Python", "C++", "PyTorch", "CUDA", "OpenCV"],
+      technologies: ["Python", "C++", "C#", "PyTorch", "CUDA", "OpenCV"],
+    },
+
+    /* BACK FROM THE ARCHIVE. Cut at score 25 — "three months of frontend
+       beside NIST-ranked R&D reads as divided attention" — and restored
+       because the updated CV lists it. The site and the CV telling different
+       stories about the same three months is worse than the entry itself, and
+       an unexplained gap invites the question anyway. Kept to one bullet so it
+       stays a line on the record rather than a second career. */
+    {
+      organization: "Intellesphere.AI",
+      role: "Full-Stack Developer",
+      period: "May 2025 — Jul 2025",
+      location: "Remote",
+
+      points: [
+        "Built and integrated frontend components against REST APIs for a live production application.",
+      ],
+      technologies: ["React.js", "Express.js", "Zustand"],
     },
   ],
 };

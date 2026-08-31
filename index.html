@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#fbfdfe" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#171b28" media="(prefers-color-scheme: dark)" />
+  <!-- One value, not a pair keyed on prefers-color-scheme: the page opens light
+       whatever the machine is set to. -->
+  <meta name="theme-color" content="#fbfdfe" />
 
   <!-- Both are replaced at runtime from content/site.js; these are what a
        crawler sees before scripts run. -->
@@ -62,8 +63,8 @@
          A saved choice has to be on <html> before the first paint, or the
          page paints light and then snaps to dark — the flash every themed
          site gets wrong. A module cannot do it: it is deferred by definition.
-         With nothing saved the attribute stays off and the stylesheet follows
-         prefers-color-scheme on its own. */
+         With nothing saved the attribute stays off, and the stylesheet's
+         :root — the light palette — is what renders. */
       try {
         var saved = localStorage.getItem("labid-theme");
         if (saved === "dark" || saved === "light") root.setAttribute("data-theme", saved);
@@ -131,11 +132,16 @@
           <a class="link" href="mailto:labid.nahiyan12@gmail.com">labid.nahiyan12@gmail.com</a>,
           read &ldquo;How Semantically Stable Are LLM Refusals?&rdquo; (IEEE DSAA 2026) at
           <a class="link" href="https://arxiv.org/abs/2512.01037">arXiv:2512.01037</a>,
-          or download the <a class="link" href="assets/cv.pdf">CV</a>.
+          or download the <a class="link" href="assets/Labid_al_nahiyan_academic_CV.pdf">CV</a>.
         </p>
       </div>
     </noscript>
   </main>
+
+  <!-- The footer sits outside <main> on purpose: it is not part of the
+       document's primary content, and a screen reader should be able to skip
+       the whole of it as one landmark. -->
+  <footer class="pagefoot" data-foot></footer>
 
   <script type="module" src="assets/js/main.js"></script>
 </body>

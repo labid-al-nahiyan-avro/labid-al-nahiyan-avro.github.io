@@ -2,23 +2,27 @@
    theme.js — the light / dark control.
 
    THE STYLESHEET DOES THE WORK, NOT THIS FILE. tokens.css carries both
-   palettes and follows `prefers-color-scheme` on its own. All this does is
-   let someone override that, and remember the override.
+   palettes. All this does is decide which one is on, and remember it.
 
-   Three states, and the third one matters:
+   Two states:
 
-       (no attribute)        follow the system — the default
-       data-theme="light"    pinned light
-       data-theme="dark"     pinned dark
+       (no attribute)        light — the default
+       data-theme="dark"     dark
+       data-theme="light"    light, written explicitly once the visitor has
+                             chosen it, so the choice survives a reload
 
-   Pinning is stored in localStorage and re-applied by the inline script in
+   THE SITE DEFAULTS TO LIGHT AND DOES NOT FOLLOW THE SYSTEM. There used to be
+   a third state — no attribute meant "follow `prefers-color-scheme`" — and the
+   control cycled light, dark, back to system. That was removed by request:
+   light is the design the page is meant to be met in, and a visitor whose
+   laptop is set to dark was being shown a different site than the one that was
+   designed. The matching `@media (prefers-color-scheme: dark)` block is gone
+   from tokens.css, and the note there says how to put both halves back.
+
+   The choice is stored in localStorage and re-applied by the inline script in
    <head>, before the first paint. It has to be inline: a module is deferred,
-   so restoring the choice here would paint the wrong theme first and snap.
+   so restoring the choice here would paint light first and snap to dark.
    This file only handles the click.
-
-   The control cycles back to "follow the system" rather than only toggling
-   two states, so a visitor who taps it once out of curiosity can get back to
-   the setting they actually keep on their machine.
 --------------------------------------------------------------------------- */
 
 /* The control's markup lives here rather than in render.js because the
@@ -42,32 +46,24 @@ export function themeButton() {
 }
 
 const KEY = "labid-theme";
-const ORDER = ["system", "light", "dark"];
+const ORDER = ["light", "dark"];
 
 const root = document.documentElement;
 
-const systemDark = () => window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-/** What is currently pinned, if anything. */
+/** Which theme is on. No attribute means light, because light is the default. */
 function current() {
-  const set = root.getAttribute("data-theme");
-  return set === "light" || set === "dark" ? set : "system";
+  return root.getAttribute("data-theme") === "dark" ? "dark" : "light";
 }
 
-/** What is actually on screen right now. */
+/** Kept as a named export: what is on screen is now the same as what is set,
+ *  but callers should not have to know that. */
 export function resolved() {
-  const now = current();
-  return now === "system" ? (systemDark() ? "dark" : "light") : now;
+  return current();
 }
 
 function apply(mode) {
-  if (mode === "system") {
-    root.removeAttribute("data-theme");
-    try { localStorage.removeItem(KEY); } catch (e) {}
-  } else {
-    root.setAttribute("data-theme", mode);
-    try { localStorage.setItem(KEY, mode); } catch (e) {}
-  }
+  root.setAttribute("data-theme", mode);
+  try { localStorage.setItem(KEY, mode); } catch (e) {}
 }
 
 /**
@@ -82,21 +78,13 @@ export function setupTheme(button) {
     const mode = current();
     const next = ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length];
     button.dataset.mode = mode;
-    button.dataset.resolved = resolved();
-    button.setAttribute(
-      "aria-label",
-      `Theme: ${mode === "system" ? "following your system" : mode}. Switch to ${next === "system" ? "follow your system" : next}.`
-    );
+    button.dataset.resolved = mode;
+    button.setAttribute("aria-label", `Theme: ${mode}. Switch to ${next}.`);
   };
 
   button.addEventListener("click", () => {
     apply(ORDER[(ORDER.indexOf(current()) + 1) % ORDER.length]);
     label();
-  });
-
-  /* While the visitor is on "system", follow it if they change it mid-visit. */
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-    if (current() === "system") label();
   });
 
   label();

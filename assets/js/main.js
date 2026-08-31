@@ -3,7 +3,7 @@
 --------------------------------------------------------------------------- */
 
 import { site } from "../../content/site.js";
-import { renderTopbar, renderFlow } from "./render.js";
+import { renderTopbar, renderFlow, renderFooter } from "./render.js";
 import { playIntro, INTRO_DONE } from "./intro.js";
 import { setupNav } from "./nav.js";
 import { setupTheme } from "./theme.js";
@@ -11,6 +11,7 @@ import { setupAmbient } from "./ambient.js";
 
 const topbar = document.querySelector("[data-topbar]");
 const flow = document.querySelector("[data-flow]");
+const foot = document.querySelector("[data-foot]");
 
 /* Metadata comes from content too, so the tab title lives in one place. */
 document.title = site.meta.title;
@@ -27,6 +28,7 @@ if (introRoles) introRoles.textContent = site.roles.join("  ·  ");
 renderTopbar(topbar);
 setupTheme(document.querySelector("[data-theme-btn]"));
 renderFlow(flow);
+renderFooter(foot);
 
 const navLinks = Array.from(document.querySelectorAll(".navlink"));
 const sections = Array.from(flow.querySelectorAll("[data-section]"));

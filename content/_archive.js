@@ -20,6 +20,11 @@
 
 export const archive = {
   /* ---- experience ---- */
+  /* INTELLESPHERE.AI IS BACK ON THE SITE. It was cut at 25 for the reason
+     below, and restored when the updated CV listed it again: the site and the
+     CV telling different stories about the same three months is worse than the
+     entry, and the gap invites the question anyway. Kept here because the
+     reasoning is still the reasoning that would cut it from a shorter page. */
   experience: [
     {
       score: 25,
@@ -137,6 +142,10 @@ export const archive = {
   ],
 
   /* ---- skills ---- */
+  /* ALL THREE OF THESE ARE BACK IN content/skills.js, for the same reason as
+     Intellesphere: the CV lists them, and a site that lists fewer reads as
+     evasive rather than as disciplined. The scoring below is kept because it is
+     the argument for cutting them again if the CV ever shortens. */
   skills: [
     {
       score: 20,

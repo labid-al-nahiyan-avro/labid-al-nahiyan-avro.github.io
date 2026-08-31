@@ -32,14 +32,14 @@ export const projects = {
   //   "Everything here is public. Each card links to its repository.",
 
   items: [
-    {
-      title: "Dense crowd tracking — training code",
-      description:
-        "The models and training setup behind the thesis loss: size-aware weighting and focal stabilization on top of YOLO-based detection, evaluated on JHU-CROWD++ and SCUT-HEAD.",
-      areas: ["Computer vision", "PyTorch", "Loss design"],
-      meta: "Python · 2024",
-      href: "https://github.com/labid-al-nahiyan/tracking_models",
-    },
+    // {
+    //   title: "Dense crowd tracking — training code",
+    //   description:
+    //     "The models and training setup behind the thesis loss: size-aware weighting and focal stabilization on top of YOLO-based detection, evaluated on JHU-CROWD++ and SCUT-HEAD.",
+    //   areas: ["Computer vision", "PyTorch", "Loss design"],
+    //   meta: "Python · 2024",
+    //   href: "https://github.com/labid-al-nahiyan/tracking_models",
+    // },
     {
       title: "Shop Genie — retrieval over 10,000 listings",
       description:
@@ -72,21 +72,35 @@ export const projects = {
       meta: "C++ · 2023",
       href: "https://github.com/labid-al-nahiyan/CSE-318_Artificial_inteligence",
     },
-    {
-      title: "A subset of a C compiler",
-      description:
-        "Lexical analysis, parsing, symbol tables and assembly generation for a working subset of C — built to find out what a language actually costs to implement.",
-      areas: ["Compilers", "C", "Flex / Bison"],
-      meta: "C · 2022",
-      href: "https://github.com/labid-al-nahiyan/Cse-310_Compiler",
-    },
-    {
-      title: "Pac-Man in C",
-      description:
-        "The whole game written against a raw OpenGL wrapper — sprite sheets, collision, ghost pathfinding and a score file, with no engine underneath any of it.",
-      areas: ["Graphics", "C", "OpenGL"],
-      meta: "C · 2021",
-      href: "https://github.com/labid-al-nahiyan/pacman",
-    },
+    // {
+    //   title: "A subset of a C compiler",
+    //   description:
+    //     "Lexical analysis, parsing, symbol tables and assembly generation for a working subset of C — built to find out what a language actually costs to implement.",
+    //   areas: ["Compilers", "C", "Flex / Bison"],
+    //   meta: "C · 2022",
+    //   href: "https://github.com/labid-al-nahiyan/Cse-310_Compiler",
+    // },
+    // {
+    //   title: "Pac-Man in C",
+    //   description:
+    //     "The whole game written against a raw OpenGL wrapper — sprite sheets, collision, ghost pathfinding and a score file, with no engine underneath any of it.",
+    //   areas: ["Graphics", "C", "OpenGL"],
+    //   meta: "C · 2021",
+    //   href: "https://github.com/labid-al-nahiyan/pacman",
+    // },
   ],
+
+  /* THE LINE UNDER THE LIST. This section is a selection, not an inventory —
+     several projects are commented out above, and more repositories exist than
+     are worth a card. This is the honest way to say so: the list is curated,
+     and the rest is one click away.
+
+     `href` blank falls back to `links.github` in content/links.js, so the
+     profile URL lives in exactly one place. Set it to a specific URL to point
+     this line somewhere else. Blank `label` removes the line entirely. */
+  more: {
+    text: "This is a selection.",
+    label: "Explore more on GitHub",
+    href: "",
+  },
 };

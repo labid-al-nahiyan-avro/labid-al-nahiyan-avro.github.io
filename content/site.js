@@ -59,7 +59,21 @@ export const site = {
     enabled: true,
   },
 
-  /* <title> and <meta name="description"> */
+  /* THE FOOTER. It carries the contacts a second time, and that is its job.
+
+     The fixed identity rail used to guarantee the email and the CV were on
+     screen at every moment; the top bar that replaced it holds navigation and
+     nothing else. A reader who has just finished the Skills section is as far
+     from the hero as it is possible to be, and asking them to scroll back up
+     to find an address is exactly the friction the rail existed to remove.
+
+     `note` is the colophon line. Keep it true and keep it one line — leave it
+     blank to drop it. `signoff` sits under the name; blank hides it. */
+  footer: {
+    signoff: "Reach me at any of these, or take the CV.",
+    note: "Built by hand — no framework, no build step, no dependencies.",
+  },
+
   /* <title> and <meta name="description">
 
      BOTH ARE DUPLICATED, STATICALLY, IN index.html — and they have to be. This

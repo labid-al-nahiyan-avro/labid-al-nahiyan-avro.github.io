@@ -40,7 +40,6 @@ import { overview } from "../../content/overview.js";
 import { themeButton } from "./theme.js";
 
 const num = (i) => String(i + 1).padStart(2, "0");
-const stripUrl = (url) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
 /* ---------- tags ----------
    A tag is coloured by what it is, not by where it sits: `Computer vision` is
@@ -878,6 +877,25 @@ function renderProjects() {
   );
 
   body.push(h("div", { class: "rows" }, items));
+
+  /* The closing line. See the `more` note in content/projects.js for why the
+     section says out loud that it is a selection. */
+  const more = projects.more || {};
+  if (isFilled(more.label)) {
+    const href = isFilled(more.href) ? more.href : links.github;
+    body.push(
+      reveal(
+        h(
+          "p",
+          { class: "more" },
+          isFilled(more.text) ? h("span", { class: "more__text", text: more.text }) : null,
+          outLink(href, more.label)
+        ),
+        items.length + 1
+      )
+    );
+  }
+
   return section("projects", body, { label: projects.heading });
 }
 
@@ -1043,30 +1061,9 @@ function renderSkills() {
     ),
   ];
 
-  const closing = [];
-  // if (isFilled(links.githubPrevious)) {
-  //   closing.push(
-  //     h(
-  //       "p",
-  //       { class: "closing__note" },
-  //       "Earlier work sits on a previous account I no longer have access to: ",
-  //       h("a", {
-  //         class: "link",
-  //         href: links.githubPrevious,
-  //         target: "_blank",
-  //         rel: "noopener",
-  //         text: stripUrl(links.githubPrevious),
-  //       }),
-  //       "."
-  //     )
-  //   );
-  // }
-  closing.push(
-    h("p", { class: "closing__foot", text: `${site.name} · ${site.location}` })
-  );
-
-  body.push(reveal(h("div", { class: "closing" }, closing), skills.groups.length));
-
+  /* The name-and-location line that used to close this section has moved into
+     the page footer, where it belongs — a section should not be signing the
+     document. See `renderFooter`. */
   return section("skills", body, { label: skills.heading });
 }
 
@@ -1081,6 +1078,61 @@ const SECTIONS = {
   education: renderEducation,
   skills: renderSkills,
 };
+
+/**
+ * The page footer.
+ *
+ * WHY IT REPEATS THE CONTACTS. The fixed identity rail this site used to have
+ * guaranteed the email, the profiles and the CV were on screen at every
+ * moment. The top bar that replaced it carries navigation and nothing else, so
+ * a reader who has just finished the last section is as far from the hero as
+ * it is possible to be. Making them scroll back up to find an address is the
+ * exact friction the rail existed to remove, and a footer costs one screen of
+ * height to remove it again.
+ *
+ * It is the same `contactRow()` the hero uses, not a second implementation —
+ * one CV button, the profiles as icons, and a link that disappears when its
+ * URL in content/links.js is blank.
+ */
+export function renderFooter(mount) {
+  if (!mount) return;
+
+  const f = site.footer || {};
+
+  const identity = h(
+    "div",
+    { class: "pagefoot__id" },
+    h("p", { class: "pagefoot__name", text: site.name }),
+    h("p", {
+      class: "pagefoot__meta",
+      text: [site.roles.join(" · "), site.location].filter(Boolean).join(" · "),
+    }),
+    isFilled(f.signoff) ? h("p", { class: "pagefoot__signoff", text: f.signoff }) : null
+  );
+
+  const bar = h(
+    "div",
+    { class: "pagefoot__bar" },
+    isFilled(f.note) ? h("p", { class: "pagefoot__note", text: f.note }) : null,
+    /* `data-goto` is what nav.js listens for, so this honours reduced motion
+       and moves focus with the page rather than only the scroll position. */
+    h(
+      "a",
+      { class: "pagefoot__top", href: "#top", "data-goto": "top" },
+      "Back to top",
+      h("span", { "aria-hidden": "true", text: " ↑" })
+    )
+  );
+
+  mount.append(
+    h(
+      "div",
+      { class: "pagefoot__in frame" },
+      h("div", { class: "pagefoot__row" }, identity, contactRow()),
+      bar
+    )
+  );
+}
 
 export function renderFlow(mount) {
   mount.append(

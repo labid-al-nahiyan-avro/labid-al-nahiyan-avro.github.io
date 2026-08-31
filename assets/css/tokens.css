@@ -279,43 +279,20 @@
   --dk-tag-line-on: 78%;
 }
 
-/* --- Dark, by system preference -------------------------------------------
-   `:not([data-theme="light"])` so an explicit light choice still wins.
-   THIS BLOCK AND THE NEXT MUST STAY IDENTICAL apart from their selector. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --page: var(--dk-page);
-    --paper-2: var(--dk-paper-2);
-    --card: var(--dk-card);
-    --ink: var(--dk-ink);
-    --ink-2: var(--dk-ink-2);
-    --ink-3: var(--dk-ink-3);
-    --rule: var(--dk-rule);
-    --rule-2: var(--dk-rule-2);
-    --tag-security: var(--dk-tag-security);
-    --tag-infra: var(--dk-tag-infra);
-    --tag-research: var(--dk-tag-research);
-    --tag-vision: var(--dk-tag-vision);
-    --tag-web: var(--dk-tag-web);
-    --tag-ml: var(--dk-tag-ml);
-    --tag-systems: var(--dk-tag-systems);
-    --accent-2: var(--dk-accent-2);
-    --accent-t: var(--dk-accent-t);
-    --accent-profile: var(--dk-accent-profile);
-    --accent-news: var(--dk-accent-news);
-    --accent-research: var(--dk-accent-research);
-    --accent-work: var(--dk-accent-work);
-    --accent-experience: var(--dk-accent-experience);
-    --accent-education: var(--dk-accent-education);
-    --accent-skills: var(--dk-accent-skills);
-    --focus: var(--dk-focus);
-    --tag-bed: var(--dk-tag-bed);
-    --tag-line: var(--dk-tag-line);
-    --tag-bed-on: var(--dk-tag-bed-on);
-    --tag-line-on: var(--dk-tag-line-on);
-  }
-}
+/* --- Dark is opt-in, not automatic ----------------------------------------
+   THERE IS NO `prefers-color-scheme: dark` BLOCK HERE, AND THAT IS THE POINT.
+   The site used to map the dark bank automatically whenever the visitor's
+   machine was set to dark, with `:not([data-theme="light"])` so an explicit
+   light choice still won. It was asked to default to light instead, so the
+   whole media block is gone: with nothing pinned, `:root` above is what
+   renders, and that is the light palette.
+
+   Dark is still complete and one click away — the block below applies it when
+   the control writes `data-theme="dark"`. If following the system is ever
+   wanted back, copy that block, wrap it in
+   `@media (prefers-color-scheme: dark)` and select
+   `:root:not([data-theme="light"])`, and change ORDER in assets/js/theme.js
+   back to three states.                                                    */
 
 /* --- Dark, by explicit choice --------------------------------------------- */
 :root[data-theme="dark"] {

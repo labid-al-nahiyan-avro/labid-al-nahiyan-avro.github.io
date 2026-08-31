@@ -17,11 +17,19 @@ export const education = {
       result: "CGPA 3.62 / 4.00",
       thesis:
         "Digging into a New Contextually Appropriate Loss Function for Dense Crowd Tracking — supervised by Prof. A. B. M. Alim Al Islam",
+      /* All eight from the CV, in its order. It was a four-course subset here
+         on the grounds that a committee only cares about the relevant ones —
+         but the CV lists eight, and a shorter list on the site just looks like
+         a different transcript. */
       courses: [
         "Machine Learning",
         "Computer Security",
+        "Artificial Intelligence",
         "Compiler Design",
+        "Database Systems",
+        "Software Engineering",
         "Data Structures & Algorithms",
+        "Object-oriented programming",
       ],
     },
   ],

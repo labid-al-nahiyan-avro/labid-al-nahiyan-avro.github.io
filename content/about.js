@@ -63,10 +63,10 @@ export const about = {
   },
 
   bio: [
-    "I graduated from **[Bangladesh University of Engineering and Technology (BUET)](https://www.buet.ac.bd/)** with a BSc in Computer Science and Engineering, and I now build biometric matching systems as a Machine Learning Engineer (R&D) at **[TigerIT](https://tigerit.com/)**.",
+    "I graduated from **[Bangladesh University of Engineering and Technology (BUET)](https://www.buet.ac.bd/)** with a BSc in Computer Science and Engineering, and I am now working as a Machine Learning Engineer (R&D) at **[TigerIT](https://tigerit.com/)**.",
 
-    "**Agentic AI security** is where that has taken me — systems that reason, use tools and act on someone\'s behalf, and the ways they can be broken or misused. I\'m working through agent security, tool-use safety, runtime sandboxing, and how to evaluate an agent in a way you can actually trust.",
+    "Working at TigerIT changed my thinking. Biometric matching is a security-sensitive setting, and being inside one made me far more curious about how these systems fail, or get fooled than about the next accuracy point.",
 
-    "It didn\'t start as a security interest. My undergraduate research was on objective design in tracking — how training choices decide what a model quietly fails to learn — and working on biometrics in a security-sensitive setting is what changed my thinking. I\'m now far more curious about **how these systems fail, or get fooled**, than about the next accuracy point.",
+    "My undergraduate research was already circling the same question. It was on objective design in tracking, where what matters is not only what a model learns but what it quietly fails to learn. Lately that has pulled me toward **agentic AI security** - systems that reason, use tools, and act on someone's behalf. They can be broken and misused in ways that are hard to see from the outside, so I have been working through **agent security**, **tool-use safety**, and **how to evaluate a system in a way you can trust**.",
   ],
 };

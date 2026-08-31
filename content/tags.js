@@ -46,15 +46,17 @@ export const tagFamilies = {
     "hierarchical q-learning", "pytorch", "distributed training (ddp)",
     "hugging face", "langchain / langgraph", "rag systems", "rag", "llm",
     "llm application", "retrieval", "transformers", "ml / ai",
-    "agentic systems", "agents",
+    "agentic systems", "agents", "artificial intelligence", "scikit-learn",
+    "sklearn", "pandas", "matplotlib", "model building",
+    "model evaluation & fine-tuning", "ml / research",
   ],
 
   /* Things that get shipped to a browser or a database. */
   web: [
     "full-stack web", "web", "react.js", "react", "next.js", "sveltekit",
-    "express.js", "zustand", "tailwindcss", "postgresql",
+    "express.js", "express", "node.js", "zustand", "tailwindcss", "postgresql",
     "rest api design", "database systems", "software engineering", "fastapi",
-    "engineering",
+    "engineering", "frameworks & libraries",
   ],
 
   /* Languages and the machinery underneath them. A language belongs here even
@@ -63,7 +65,8 @@ export const tagFamilies = {
      rather than as two arbitrary halves. */
   systems: [
     "compilers", "systems", "compiler design", "embedded", "embedded c",
-    "arduino", "c", "c++", "c#", "java", "python", "go", "typescript", "sql",
+    "arduino", "c", "c/c++", "c++", "c#", "java", "python", "go", "typescript",
+    "sql", "object-oriented programming", "oop",
     "flex", "bison", "yacc", "data structures & algorithms", "languages",
     "opengl", "graphics",
   ],
@@ -71,6 +74,7 @@ export const tagFamilies = {
   /* The toolchain around the work. */
   infra: [
     "cuda", "docker", "linux", "git", "infrastructure", "ci", "bash",
+    "postman", "tools",
   ],
 };
 

@@ -38,7 +38,8 @@
    8  Editorial rows
    9  Row interiors
    10 The metric chart
-   11 Skills & closing
+   11 Skills
+   11b The page footer
    12 Photography page
    13 Photograph viewer
    14 Reveal system
@@ -344,10 +345,8 @@ code {
    one you would get — the aria-label carries the action, and an icon that
    flips to the opposite state is the classic way to make a toggle ambiguous.
 
-   Three states, not two: pressing it cycles light, dark, back to following
-   the system. The small dot appears only while a choice is pinned, so it is
-   possible to tell "I am on dark because I chose it" from "I am on dark
-   because my laptop is". */
+   Two states: light and dark. The site opens light and does not follow the
+   system; see the note at the top of assets/js/theme.js. */
 .themebtn {
   position: relative;
   display: grid;
@@ -381,17 +380,10 @@ code {
 .themebtn__moon { display: none; }
 .themebtn[data-resolved="light"] .themebtn__sun { display: block; }
 .themebtn[data-resolved="dark"] .themebtn__moon { display: block; }
-/* Pinned rather than following the system. */
-.themebtn:not([data-mode="system"])::after {
-  content: "";
-  position: absolute;
-  right: 3px;
-  bottom: 3px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--accent);
-}
+/* THE PINNED DOT IS GONE. It existed to distinguish "I am on dark because I
+   chose it" from "I am on dark because my laptop is", back when a third state
+   followed the system. There are two states now and no ambiguity to resolve —
+   the dot would simply be on at all times. */
 
 /* ============ 4. THE OPENING ============ */
 /* A full-screen layer of two ivory panels with the identity on top. The
@@ -1538,6 +1530,19 @@ html.intro-done .intro { display: none; }
 .row__text { color: var(--ink-2); max-width: var(--measure); }
 .row__links { display: flex; flex-wrap: wrap; gap: var(--space-4); }
 
+/* The line closing a section: a quiet sentence and one link out. Set at the
+   metadata size so it reads as a footnote to the list rather than as another
+   item in it. */
+.more {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-3);
+  margin-top: var(--space-3);
+  font-size: var(--step--1);
+}
+.more__text { color: var(--ink-3); }
+
 /* ============ 9. ROW INTERIORS ============ */
 
 .intro-block { display: grid; gap: var(--space-3); justify-items: start; }
@@ -1721,12 +1726,85 @@ html.intro-done .intro { display: none; }
   color: var(--ink-3);
 }
 
-.closing { display: grid; gap: var(--space-3); }
-.closing__note,
-.closing__foot {
+/* ============ 11b. THE PAGE FOOTER ============ */
+/* Identity on the left, the same contact controls the hero uses on the right,
+   and a thin bar under both.
+
+   IT IS NOT A SECTION. No number, no accent, no reveal stagger — it sits
+   outside <main> and outside the nav's list, so it must not look like an
+   eighth thing to read. The accent it does use is `--accent-profile`, pinned
+   rather than inherited, because the last section's colour would otherwise
+   bleed into it and make the foot of the page look like part of Skills. */
+
+.pagefoot {
+  --accent: var(--accent-profile);
+  border-top: 1px solid var(--rule-2);
+  background: color-mix(in srgb, var(--paper-2) 55%, transparent);
+}
+.pagefoot__in {
+  display: grid;
+  gap: var(--space-5);
+  padding-block: var(--space-6);
+}
+
+.pagefoot__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+.pagefoot__id { display: grid; gap: var(--space-1); }
+
+.pagefoot__name {
+  font-size: var(--step-1);
+  font-weight: 700;
+  letter-spacing: var(--tracking-display);
+  color: var(--ink);
+}
+.pagefoot__meta {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.03em;
+  color: var(--ink-3);
+}
+.pagefoot__signoff {
+  margin-top: var(--space-2);
+  font-size: var(--step--1);
+  color: var(--ink-2);
+  max-width: 34ch;
+}
+/* The controls are the hero's, so they arrive with its top margin. */
+.pagefoot .actions { margin-top: 0; }
+
+/* The bar. A hairline, the colophon, and the way back up. */
+.pagefoot__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--rule-2);
+}
+.pagefoot__note {
   font-family: var(--font-mono);
   font-size: var(--step--2);
   color: var(--ink-3);
+}
+.pagefoot__top {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  text-decoration: none;
+  transition: color var(--t-fast) var(--ease);
+}
+.pagefoot__top:hover { color: var(--accent); }
+
+@media (max-width: 620px) {
+  .pagefoot__row { flex-direction: column; }
 }
 
 /* ============ 12. PHOTOGRAPHY PAGE ============ */

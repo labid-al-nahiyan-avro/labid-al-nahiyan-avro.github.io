@@ -46,16 +46,16 @@ export const research = {
   /* The two directions being applied in, and the vocabulary underneath them.
      Kept to five: a longer list reads as undecided. */
   interests: [
-    "AI security",
+    "Machine Learning",
+    "AI Security and Privacy",
+    "Trustworthy AI",
     "Computer vision",
     "Biometrics",
-    "Adversarial robustness",
-    "Evaluation",
   ],
 
   statement:
-    "I'm drawn to the moments where a model's behaviour diverges from what it should do, and to the problem of measuring those gaps precisely rather than anecdotally.",
-
+    // "I'm drawn to the moments where a model's behaviour diverges from what it should do, and to the problem of measuring those gaps precisely rather than anecdotally.",
+    "",
   /* The two sub-lists, in the order they appear on the page. `id` matches
      `status` on the items below; `note` is one line under the heading and may
      be left blank. A group with no items in it does not render at all.
@@ -74,7 +74,7 @@ export const research = {
     {
       id: "done",
       heading: "Completed",
-      note: "Finished work — accepted, published, or defended.",
+      // note: "Finished work — accepted, published, or defended.",
     },
   ],
 
@@ -113,30 +113,30 @@ export const research = {
       links: [],
     },
 
-    {
-      id: "distortion-robust-matching",
-      status: "ongoing",
-      kind: "paper",
-      stage: "In progress",
-      title: "Distortion-robust objectives for fingerprint matching",
-      description:
-        "Real fingerprint capture is non-linear elastic distortion and rotation, not clean impressions. The objective should say so.",
-      areas: ["Biometrics", "Loss design", "Robustness", "Computer vision"],
-      meta: "R&D at TigerIT Bangladesh · Aug 2025 – present",
+    // {
+    //   id: "distortion-robust-matching",
+    //   status: "ongoing",
+    //   kind: "paper",
+    //   stage: "In progress",
+    //   title: "Distortion-robust objectives for fingerprint matching",
+    //   description:
+    //     "Real fingerprint capture is non-linear elastic distortion and rotation, not clean impressions. The objective should say so.",
+    //   areas: ["Biometrics", "Loss design", "Robustness", "Computer vision"],
+    //   meta: "R&D at TigerIT Bangladesh · Aug 2025 – present",
 
-      details: {
-        venue: "Industrial R&D. No write-up submitted yet.",
-        problem:
-          "Minutiae-based matchers are trained as if impressions were clean, then deployed against skin that stretches and fingers that land at an angle. The two dominant real-capture failure modes are absent from the objective the matcher is optimized for.",
-        approach:
-          "A custom loss that models non-linear elastic distortion and rotational variance directly, trained with multi-GPU distributed PyTorch over an 800K+ class output layer, and evaluated against the NIST MINEX III protocol.",
-        contribution:
-          "My part is the objective, the data preparation and the training. The open question I want to carry into a PhD is whether the same distortion model that improves genuine matching also changes what an attacker has to do to force a false match.",
-        results: "",
-      },
+    //   details: {
+    //     venue: "Industrial R&D. No write-up submitted yet.",
+    //     problem:
+    //       "Minutiae-based matchers are trained as if impressions were clean, then deployed against skin that stretches and fingers that land at an angle. The two dominant real-capture failure modes are absent from the objective the matcher is optimized for.",
+    //     approach:
+    //       "A custom loss that models non-linear elastic distortion and rotational variance directly, trained with multi-GPU distributed PyTorch over an 800K+ class output layer, and evaluated against the NIST MINEX III protocol.",
+    //     contribution:
+    //       "My part is the objective, the data preparation and the training. The open question I want to carry into a PhD is whether the same distortion model that improves genuine matching also changes what an attacker has to do to force a false match.",
+    //     results: "",
+    //   },
 
-      links: [],
-    },
+    //   links: [],
+    // },
 
     /* COMPLETED. Order inside a group follows the array, so the accepted paper
        leads and the thesis follows it. */
@@ -144,7 +144,7 @@ export const research = {
       id: "semantic-stability",
       status: "done",
       kind: "paper",
-      stage: "Accepted",
+      stage: "Accepted at DSAA 2026",
 
       /* RENAMED. This is the same paper that went up as a preprint in
          December 2025 under "When Safety Blocks Sense: Measuring Semantic
@@ -157,12 +157,12 @@ export const research = {
       description:
         "Language models reject harmless paraphrases of intents they otherwise accept. We named the failure mode, built a corpus for it, and gave it three metrics.",
       areas: ["LLM safety", "Alignment", "Evaluation", "Benchmarking"],
-      meta: "Co-author · IEEE DSAA 2026, New Delhi · Short Presentation · 6–9 Oct 2026",
+      meta: "Co-author · Supervisor: Dr. Ch. Md. Rakin Haider · IEEE DSAA 2026",
 
       details: {
         /* Everything about where it landed, in one place. */
         venue:
-          "Accepted to the 13th IEEE International Conference on Data Science and Advanced Analytics (DSAA 2026), New Delhi, India, 6–9 October 2026, for Short Presentation, and appearing in the IEEE conference proceedings. Subtitled “Measuring Confusion in Local Safety Boundaries”; the December 2025 arXiv posting carries the earlier title “When Safety Blocks Sense”.",
+          "Accepted to the 13th IEEE International Conference on Data Science and Advanced Analytics (DSAA 2026), New Delhi, India, 6–9 October 2026, for Short Presentation, and appearing in the IEEE conference proceedings. Supervised by Dr. Ch. Md. Rakin Haider. Subtitled “Measuring Confusion in Local Safety Boundaries”; the December 2025 arXiv posting carries the earlier title “When Safety Blocks Sense”.",
         problem:
           "Safety-aligned models refuse inconsistently: one phrasing of a harmless intent is accepted, a near-identical paraphrase is rejected. The gap shows how poorly alignment generalizes across surface form.",
         approach:
@@ -188,7 +188,7 @@ export const research = {
 
       details: {
         venue:
-          "Undergraduate thesis, Department of Computer Science and Engineering, Bangladesh University of Engineering and Technology. Defended March 2025.",
+          "Undergraduate thesis, Department of Computer Science and Engineering, Bangladesh University of Engineering and Technology. Defended March 2025; planned submission to NSysS 2026.",
         problem:
           "Tracking small, overlapping objects in dense crowds fails for a specific reason: CIoU, DIoU and GIoU weigh a tiny head like a large isolated one, and destabilize gradients for the clustered targets that dominate crowd scenes.",
         approach:
@@ -218,12 +218,19 @@ export const research = {
      back them. Correct the wording; keep the shape. */
   direction: {
     heading: "What I want to work on",
+
+    /* THREE SHORT PARAGRAPHS, AND NO DEFINITION OF "AGENTIC". The bio in
+       content/about.js already says what an agentic system is — a model that
+       reasons, uses tools and acts on someone's behalf — and repeating it two
+       sections later is the same sentence twice on one page. This block starts
+       from the assumption that the reader has met the term already, which is
+       what lets it be this short. */
     text: [
-      "I want to work on the security and reliability of machine learning systems that people are already deployed against — face and fingerprint matchers, and the models that decide what a request is allowed to do. Both are systems where being wrong has a cost that falls on someone, and where the failure is usually in the objective rather than the architecture.",
+      "I want to work on the security and reliability of machine learning systems after they are deployed, and increasingly on agentic ones. An agent has a much larger attack surface than a classifier and much less settled ground on how to test it.",
 
-      "Two threads lead there from what I have already done. The first is adversarial and distributional robustness in biometrics: at TigerIT I built a loss for the non-linear elastic distortion and rotational variance that dominate real fingerprint capture, and the same question — what is this system actually optimizing for, and what does that miss — is the one I want to ask about attacks on it. The second is evaluation: the DSAA paper names a failure mode in LLM refusals and gives it three metrics, because a failure nobody can measure is a failure nobody fixes.",
+      "Three threads in what I have already done lead there: evaluation, naming a failure mode precisely enough to measure it; robustness, writing the objective around the conditions a system actually meets rather than the inputs it was trained on; and behaviour, reading what a system did for the shape an attack leaves rather than the exploit that made it. Agentic systems are where all three have to hold at once.",
 
-      "The direction I would like to push is from diagnosis toward intervention — using measures of inconsistency during training rather than only after it, and testing whether the gaps they expose predict other robustness failures.",
+      "What I want to push on is the move from diagnosis to intervention — measuring inconsistency during training rather than only after it — and evaluation for agents that holds up when the agent is adversarial, not merely wrong.",
     ],
   },
 
@@ -232,7 +239,7 @@ export const research = {
       citation:
         'L. Al Nahiyan et al. "How Semantically Stable Are LLM Refusals? Measuring Confusion in Local Safety Boundaries." In Proc. 13th IEEE International Conference on Data Science and Advanced Analytics (DSAA), New Delhi, India, 2026.',
       link: "https://arxiv.org/abs/2512.01037",
-      note: "Accepted — IEEE DSAA 2026, Short Presentation",
+      note: "Accepted — IEEE DSAA 2026",
     },
     {
       citation:

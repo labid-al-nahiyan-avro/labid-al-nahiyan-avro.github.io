@@ -14,9 +14,17 @@ export const links = {
   /* Fill this in when the profile exists; blank hides it. */
   orcid: "",
 
-  /* Served CV. Replace assets/cv.pdf with whichever version you settle on —
-     the filename is what the site links to, so nothing else needs editing. */
-  cv: "assets/cv.pdf",
+  /* THE SERVED CV, AND THERE IS ONLY ONE COPY OF IT. It used to be a generic
+     `assets/cv.pdf`, on the theory that a stable filename meant no code change
+     when the file was replaced. The descriptive name is better where it counts:
+     what lands in a reviewer's downloads folder is the thing they will look at
+     again in three weeks, and "cv.pdf" among forty other cv.pdf files is not
+     findable.
+
+     Two copies would be the real trap — the next update would silently refresh
+     only one of them — so the generic duplicate is gone. If this filename
+     changes, the no-JavaScript block in index.html links to it too. */
+  cv: "assets/Labid_al_nahiyan_academic_CV.pdf",
 
   /* Earlier work lives on the account you lost access to. Shown as a small
      note at the end of the last section. Blank hides the note. */
