@@ -216,15 +216,26 @@ export const research = {
      Written from the two directions actually being applied in — AI security
      and biometrics/applied vision — and from the work that already exists to
      back them. Correct the wording; keep the shape. */
-  direction: {
-    heading: "What I want to work on",
+  /* OFF. The research statement is not rendered, and `show: false` is the only
+     thing switching it off — the text below is intact and one word from
+     returning.
 
-    /* THREE SHORT PARAGRAPHS, AND NO DEFINITION OF "AGENTIC". The bio in
-       content/about.js already says what an agentic system is — a model that
-       reasons, uses tools and acts on someone's behalf — and repeating it two
-       sections later is the same sentence twice on one page. This block starts
-       from the assumption that the reader has met the term already, which is
-       what lets it be this short. */
+     WHY IT WENT. It was three paragraphs saying what the work is for, sitting
+     under four cards that already say it: the Ongoing group is the direction,
+     stated as work actually being done rather than as intent. Read in order,
+     the section made its argument twice — once in evidence and once in prose —
+     and the prose half was the weaker one, because anybody can write that they
+     want to work on agentic security and only the cards prove it.
+
+     It is also the paragraph a committee is least likely to believe from a
+     website; that argument belongs in a statement of purpose, addressed to a
+     specific lab, not broadcast to everyone.
+
+     Keep it here rather than deleting it: it is the clearest existing draft of
+     the research statement, and it is worth having when one is being written. */
+  direction: {
+    show: false,
+    heading: "What I want to work on",
     text: [
       "I want to work on the security and reliability of machine learning systems after they are deployed, and increasingly on agentic ones. An agent has a much larger attack surface than a classifier and much less settled ground on how to test it.",
 

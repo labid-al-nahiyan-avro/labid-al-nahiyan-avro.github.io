@@ -62,11 +62,105 @@ export const about = {
     alt: "Labid Al Nahiyan",
   },
 
+  /* THE SHAPE HERE FOLLOWS WHAT ACADEMIC PAGES ACTUALLY DO, with one
+     deliberate departure.
+
+     Surveyed: a faculty page opens "I am an Assistant Professor of Computer
+     Science at UMass Amherst CICS," then research focus, then background, then
+     one personal line. Another opens with the doctorate and its supervisor,
+     then past employment, then the interests as a list. A peer applying in the
+     same area opens with the interests themselves and gets to the work second.
+     Two to four sentences a paragraph, one or two paragraphs, first person,
+     no throat-clearing.
+
+     THE DEPARTURE: those pages lead with position because nothing else on the
+     page states it. This one already does — the role line sits directly above
+     this text and the availability pill above that — so spending the first
+     sentence on the job would say it three times before saying anything. The
+     interest leads instead.
+
+     IT READS AS A STORY, IN ORDER, AND EACH PARAGRAPH HANDS OFF TO THE NEXT:
+
+       greeting   "Hi! I am Labid. I studied … at BUET. My research focuses …"
+       origin     "It started with my undergraduate thesis …"
+       sharpened  "That question sharpened at work …"
+       forward    "That curiosity has lately pulled me toward …"
+       outside    "Outside research I enjoy photography, travelling …"
+
+     THE FIRST WORDS OF EVERY PARAGRAPH AFTER THE FIRST POINT BACKWARDS — `It
+     started`, `That question`, `That curiosity`. That is the entire mechanism
+     and it is fragile: it has broken twice.
+
+     Once when the origin paragraph was moved to the end, leaving "that"
+     reaching back past a paragraph about employment for something to refer to.
+     Once when the paragraphs were rewritten to stand alone, which left `Lately
+     it has pulled me toward …` with no antecedent at all — "it" pointed at a
+     sentence about being curious, two paragraphs away.
+
+     So: if a paragraph here is reordered or rewritten, check the first three
+     words of the one after it. That is where the seam shows.
+
+     THE GREETING IS A CHOICE, AND IT HAS A COST WORTH KNOWING. The peer pages
+     that open with an introduction do it because that sentence is the only
+     place their role and institution appear. Here the name is set at 56px
+     directly above this text and the role line under it reads "ML Engineer @
+     TigerIT LTD" — so "Hi! I am Labid" is the second statement of the name, and
+     the TigerIT title in the third paragraph is the second statement of the
+     job. That is a deliberate trade of concision for warmth, not an oversight;
+     the work-first version is in the git history if it is ever wanted back.
+
+     THE LAST LINE IS THE HOBBY LINE, and it is conventional — the peer pages
+     close on "Outside of research, I enjoy …". Keep it to one line; this is a
+     signature, not a second biography.
+
+     "photography" IS PLAIN TEXT AND NOT A LINK, DELIBERATELY, FOR NOW. The
+     gallery has no photographs in it yet, and a link that lands a reader on an
+     empty page costs more than the link is worth. To turn it on once the images
+     are up, wrap the word:
+
+         "Outside research I enjoy {photography|photography}, travelling, and
+          watching anime."
+
+     The syntax still works — see `parseInline` in assets/js/render.js — it is
+     simply not being used.
+
+     What survives from the pattern, and should survive an edit:
+       · the specific sub-topics are named early, because a professor scanning
+         for a match is scanning for those words and nothing else
+       · the degree is named in full with the field
+       · two paragraphs, not four; nothing here is the statement of purpose
+
+     "MY RESEARCH…" IS THE OPENING, AND THAT IS NOT A STYLE CHOICE. Four peer
+     pages, all PhD students or applicants in this area:
+
+       "My research focuses on the security and robustness of modern machine
+        learning systems…"                     — Tel Aviv, LLM / agent security
+       "My research interests include distributed machine learning…"  — GaTech
+       "My research interests span mobile security, scam, fraud…"       — UCLA
+       "My research interests span robotics, machine learning…"       — GaTech
+
+     Four out of four make "My research" the grammatical subject of the first
+     sentence about the work. It is what a professor skimming a dozen applicant
+     pages is pattern-matching against, and "I work on…" — which is what this
+     said before — says the identical thing while missing the string they are
+     looking for.
+
+     `focuses on` rather than `interests include/span`, because two of those
+     four enumerate a list right there in the sentence and this page does not
+     need to: content/research.js already renders the interests as tags at the
+     top of the Research section, and the CV has its own Research Interests
+     block. The one page in the sample that also has a separate list — Tel Aviv,
+     and the closest match to this subfield — is the one that uses `focuses on`.
+     Prose in the bio, keywords in the list, each said once. */
   bio: [
-    "I graduated from **[Bangladesh University of Engineering and Technology (BUET)](https://www.buet.ac.bd/)** with a BSc in Computer Science and Engineering, and I am now working as a Machine Learning Engineer (R&D) at **[TigerIT](https://tigerit.com/)**.",
+    "Hi! I am Labid. I studied Computer Science and Engineering at **[Bangladesh University of Engineering and Technology (BUET)](https://www.buet.ac.bd/)**. My research focuses on the security and reliability of machine learning systems once they are deployed — the gap between a model that scores well and a model that holds up.",
 
-    "Working at TigerIT changed my thinking. Biometric matching is a security-sensitive setting, and being inside one made me far more curious about how these systems fail, or get fooled than about the next accuracy point.",
+    "It started with my undergraduate thesis, on objective design in tracking. What it taught me is that the interesting part is not only what a model learns, but what it quietly fails to learn.",
 
-    "My undergraduate research was already circling the same question. It was on objective design in tracking, where what matters is not only what a model learns but what it quietly fails to learn. Lately that has pulled me toward **agentic AI security** - systems that reason, use tools, and act on someone's behalf. They can be broken and misused in ways that are hard to see from the outside, so I have been working through **agent security**, **tool-use safety**, and **how to evaluate a system in a way you can trust**.",
+    "That question sharpened at work. I am currently a Machine Learning Engineer (R&D) at **[TigerIT](https://tigerit.com/)**, where I focus on biometric matching, and being inside a security-sensitive system made me far more curious about how these systems fail, or get fooled, than about the next accuracy point.",
+
+    "That curiosity has lately pulled me toward **agentic AI security** — systems that reason, use tools, and act on someone's behalf. I have been working through agent security, tool-use safety, and how to evaluate an agent in a way you can trust.",
+
+    "Outside research I enjoy photography, travelling, and watching anime.",
   ],
 };

@@ -800,17 +800,21 @@ function renderResearch() {
     );
   });
 
-  body.push(
-    reveal(
-      h(
-        "div",
-        { class: "block" },
-        h("h3", { class: "block__title", text: research.direction.heading }),
-        h("div", { class: "prose" }, research.direction.text.map((t) => h("p", { text: t })))
-      ),
-      3
-    )
-  );
+  /* The research statement, off behind `direction.show` in
+     content/research.js — the reasoning for that is written there. */
+  if (research.direction && research.direction.show) {
+    body.push(
+      reveal(
+        h(
+          "div",
+          { class: "block" },
+          h("h3", { class: "block__title", text: research.direction.heading }),
+          h("div", { class: "prose" }, research.direction.text.map((t) => h("p", { text: t })))
+        ),
+        3
+      )
+    );
+  }
 
   // if (research.publications && research.publications.length) {
   //   body.push(
