@@ -1117,7 +1117,10 @@ export function renderFooter(mount) {
   const bar = h(
     "div",
     { class: "pagefoot__bar" },
-    isFilled(f.note) ? h("p", { class: "pagefoot__note", text: f.note }) : null,
+    /* Run through the bio's markup parser rather than set as plain text, so the
+       colophon can carry links — `[label](url)` and `**bold**` both work here.
+       It is the same `parseInline` the bio uses; there is no second syntax. */
+    isFilled(f.note) ? h("p", { class: "pagefoot__note" }, parseInline(f.note)) : null,
     /* `data-goto` is what nav.js listens for, so this honours reduced motion
        and moves focus with the page rather than only the scroll position. */
     h(

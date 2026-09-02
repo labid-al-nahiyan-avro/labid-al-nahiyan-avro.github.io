@@ -26,16 +26,16 @@ export const experience = {
          to lose a committee, and NIST MINEX III results are published — a
          professor can look them up in a minute.
          Role on it: data preparation and model training. */
-      metric: {
-        label: "False Non-Match Rate",
-        note: "NIST MINEX III · at FMR ≤ 10⁻²",
-        lowerIsBetter: true,
-        delta: "−41%",
-        rows: [
-          { label: "Baseline", value: 0.0151 },
-          { label: "Optimized", value: 0.0089 },
-        ],
-      },
+      // metric: {
+      //   label: "False Non-Match Rate",
+      //   note: "NIST MINEX III · at FMR ≤ 10⁻²",
+      //   lowerIsBetter: true,
+      //   delta: "−41%",
+      //   rows: [
+      //     { label: "Baseline", value: 0.0151 },
+      //     { label: "Optimized", value: 0.0089 },
+      //   ],
+      // },
 
       points: [
         "Team submission currently ranked 5th on NIST MINEX III. My part is the data preparation and the model training and evaluate metrics.",
@@ -43,7 +43,7 @@ export const experience = {
         "Engineered a custom loss for non-linear elastic distortion and rotational variance — the two failure modes that dominate real fingerprint capture — and validated it across several public capture datasets.",
         "Built and maintained multi-GPU distributed training in PyTorch: memory scaling on an 800K+ class output layer, per-epoch logging and reproducibility checks for runs that last days.",
         "Diagnosed coordinate-transform and rotation-angle bugs across the native/managed boundary — a C++ DLL against Python and C# tooling — and built internal visualisation tools to isolate pipeline errors faster.",
-        "Worked the full stack of a production matching system, from low-level C++/CUDA components through the Python training pipeline to C# application integration.",
+        "Worked on the full stack of a production matching system, from low-level C++/CUDA components through the Python training pipeline to C# dataset preparation application for biometrics matching",
       ],
       technologies: ["Python", "C++", "C#", "PyTorch", "CUDA", "OpenCV"],
     },

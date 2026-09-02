@@ -10,8 +10,8 @@ export const education = {
 
   items: [
     {
-      school: "Bangladesh University of Engineering and Technology",
-      shortName: "BUET",
+      // school: "Bangladesh University of Engineering and Technology",
+      shortName: "Bangladesh University of Engineering and Technology (BUET)",
       degree: "BSc in Computer Science and Engineering",
       period: "Feb 2020 — Mar 2025",
       result: "CGPA 3.62 / 4.00",

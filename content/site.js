@@ -71,7 +71,10 @@ export const site = {
      blank to drop it. `signoff` sits under the name; blank hides it. */
   footer: {
     signoff: "Reach me at any of these, or take the CV.",
-    note: "Built by hand — no framework, no build step, no dependencies.",
+    /* The colophon. It accepts the same markup the bio does — `[label](url)`
+       and `**bold**` — because it is parsed by the same function. */
+    note:
+      "Built with [Claude Code](https://claude.com/claude-code) — no framework, no build step, no dependencies. [Source](https://github.com/labid-al-nahiyan-avro/labid-al-nahiyan-avro.github.io).",
   },
 
   /* <title> and <meta name="description">

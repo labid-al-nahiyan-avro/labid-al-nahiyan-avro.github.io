@@ -51,7 +51,7 @@ export const projects = {
     {
       title: "NerdHerd — collaborative learning platform",
       description:
-        "Live classes, group video calls, collaborative notes, forums, real-time quizzes and an AI chatbot in one application. I designed the PostgreSQL schema and the core features; most of the work was deciding which state belongs on the server and which belongs in the client.",
+        "Live classes, group video calls, collaborative notes, forums, real-time quizzes and an AI chatbot in one application. We designed the PostgreSQL schema and the core features; most of the work was deciding which state belongs on the server and which belongs in the client.",
       areas: ["Full-stack web", "SvelteKit", "PostgreSQL"],
       meta: "Svelte · team project · 2024",
       href: "https://github.com/TheDeadcoder/nerdherd2ndrun",
@@ -59,7 +59,7 @@ export const projects = {
     {
       title: "BABO — a robot that learns to get out of its own way",
       description:
-        "A crawling robot that adapts its policy live rather than replaying a fixed route: a hierarchical Q-learning policy on embedded Arduino hardware, and a bidirectional locomotion control loop that responds to terrain and obstacles. Runner-up at the BUET project showcase.",
+        "A crawling robot that adapts its policy live rather than replaying a fixed route: a hierarchical Q-learning policy on embedded Arduino hardware, and a bidirectional locomotion control loop that responds to terrain and obstacles. Runner-up at the BUET CSE 316 course project showcase.",
       areas: ["Reinforcement learning", "Hierarchical Q-learning", "Embedded"],
       meta: "Python · team project · 2023",
       href: "https://github.com/zarifikram/BABO",
@@ -99,7 +99,7 @@ export const projects = {
      profile URL lives in exactly one place. Set it to a specific URL to point
      this line somewhere else. Blank `label` removes the line entirely. */
   more: {
-    text: "This is a selection.",
+    text: "",
     label: "Explore more on GitHub",
     href: "",
   },

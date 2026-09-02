@@ -173,7 +173,7 @@ export const research = {
         approach:
           "Each refusal is compared against its FAISS-retrieved accepted neighbours on three axes — score drift, probability shift and perplexity contrast — which exposes safety-alignment gaps that coarse prompt-embedding similarity misses.",
         contribution:
-          "I developed ParaGuard, the 10,000-prompt corpus of controlled paraphrase clusters, and designed the three token-level metrics — Confusion Index, Rate and Depth. I also ran the cohort analysis across model families.",
+          "We developed ParaGuard, the 10,000-prompt corpus of controlled paraphrase clusters, and designed the three token-level metrics — Confusion Index, Rate and Depth. Running the evaluation was my responsibility: model against the full corpus, across the Llama, Mistral, and other models.",
         results:
           "ParaGuard · 10,000 prompts · CI/CR/CD across Llama, Mistral, Qwen and GPT families",
       },
