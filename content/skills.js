@@ -45,7 +45,6 @@ export const skills = {
         "Node.js",
         "Express",
         "React",
-        "Next.js",
       ],
     },
     {

@@ -40,9 +40,10 @@ export const experience = {
       points: [
         "Team submission currently ranked 5th on NIST MINEX III. My part is the data preparation and the model training and evaluate metrics.",
         "Cut the False Non-Match Rate 41% on that benchmark by optimizing the minutiae-based template generator and matching pipeline.",
-        "Engineered a custom loss for non-linear elastic distortion and rotational variance — the two failure modes that dominate real fingerprint capture.",
-        "Engineered multi-GPU distributed training in PyTorch: memory scaling on an 800K+ class output layer, duplicated forward passes, host out-of-memory crashes.",
-        "Built the cross-language production pipeline, tracing coordinate-transform and rotation-angle bugs across the C++/managed boundary and shipping reproducible builds.",
+        "Engineered a custom loss for non-linear elastic distortion and rotational variance — the two failure modes that dominate real fingerprint capture — and validated it across several public capture datasets.",
+        "Built and maintained multi-GPU distributed training in PyTorch: memory scaling on an 800K+ class output layer, per-epoch logging and reproducibility checks for runs that last days.",
+        "Diagnosed coordinate-transform and rotation-angle bugs across the native/managed boundary — a C++ DLL against Python and C# tooling — and built internal visualisation tools to isolate pipeline errors faster.",
+        "Worked the full stack of a production matching system, from low-level C++/CUDA components through the Python training pipeline to C# application integration.",
       ],
       technologies: ["Python", "C++", "C#", "PyTorch", "CUDA", "OpenCV"],
     },
@@ -60,7 +61,8 @@ export const experience = {
       location: "Remote",
 
       points: [
-        "Built and integrated frontend components against REST APIs for a live production application.",
+        "Built responsive frontend components from UI/UX designs and integrated REST APIs for real-time data rendering in a live production application.",
+        "Tested, debugged and optimized the deployed application, resolving functional and performance issues affecting end users.",
       ],
       technologies: ["React.js", "Express.js", "Zustand"],
     },

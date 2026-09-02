@@ -43,7 +43,7 @@ export const projects = {
     {
       title: "Shop Genie — retrieval over 10,000 listings",
       description:
-        "A shopping assistant that answers plain-language questions over 10,000+ scraped listings. The hard part was retrieval quality, not generation: a bad chunk ranked first is a wrong answer no amount of prompting recovers.",
+        "Plain-language search over 10,000+ scraped listings — a RAG pipeline on Qdrant with OpenAI text-embedding-3-small, and a SvelteKit application on Supabase carrying search, recommendation and sentiment analysis. The hard part was retrieval quality, not generation: a bad chunk ranked first is a wrong answer no amount of prompting recovers.",
       areas: ["Retrieval", "RAG", "SvelteKit"],
       meta: "Svelte · team project · 2024",
       href: "https://github.com/yoboBUETGenesis/ShopGenie",
@@ -51,7 +51,7 @@ export const projects = {
     {
       title: "NerdHerd — collaborative learning platform",
       description:
-        "Live classes, video calls, collaborative notes, forums and real-time quizzes in one application, where most of the work was deciding which state belongs on the server and which belongs in the client.",
+        "Live classes, group video calls, collaborative notes, forums, real-time quizzes and an AI chatbot in one application. I designed the PostgreSQL schema and the core features; most of the work was deciding which state belongs on the server and which belongs in the client.",
       areas: ["Full-stack web", "SvelteKit", "PostgreSQL"],
       meta: "Svelte · team project · 2024",
       href: "https://github.com/TheDeadcoder/nerdherd2ndrun",
@@ -59,7 +59,7 @@ export const projects = {
     {
       title: "BABO — a robot that learns to get out of its own way",
       description:
-        "A crawling robot trained with hierarchical Q-learning on a custom chassis, adapting its policy live rather than replaying a fixed route. Runner-up, CSE 316 project showcase.",
+        "A crawling robot that adapts its policy live rather than replaying a fixed route: a hierarchical Q-learning policy on embedded Arduino hardware, and a bidirectional locomotion control loop that responds to terrain and obstacles. Runner-up at the BUET project showcase.",
       areas: ["Reinforcement learning", "Hierarchical Q-learning", "Embedded"],
       meta: "Python · team project · 2023",
       href: "https://github.com/zarifikram/BABO",

@@ -45,12 +45,17 @@ export const research = {
   /* Shown once at the top of the section. */
   /* The two directions being applied in, and the vocabulary underneath them.
      Kept to five: a longer list reads as undecided. */
+  /* THE FIVE FROM THE CV, IN ITS ORDER. Keep them in step: this row and the
+     CV's Research Interests block are the two places a reader matches against,
+     and they should not disagree. `Agentic security` arrived with the Sep 2026
+     CV and `Biometrics` left with it — biometrics is still all over the page as
+     work, but it is no longer being advertised as a direction. */
   interests: [
     "Machine Learning",
     "AI Security and Privacy",
+    "Agentic security",
     "Trustworthy AI",
     "Computer vision",
-    "Biometrics",
   ],
 
   statement:
@@ -164,12 +169,13 @@ export const research = {
         venue:
           "Accepted to the 13th IEEE International Conference on Data Science and Advanced Analytics (DSAA 2026), New Delhi, India, 6–9 October 2026, for Short Presentation, and appearing in the IEEE conference proceedings. Supervised by Dr. Ch. Md. Rakin Haider. Subtitled “Measuring Confusion in Local Safety Boundaries”; the December 2025 arXiv posting carries the earlier title “When Safety Blocks Sense”.",
         problem:
-          "Safety-aligned models refuse inconsistently: one phrasing of a harmless intent is accepted, a near-identical paraphrase is rejected. The gap shows how poorly alignment generalizes across surface form.",
+          "Safety-aligned models refuse inconsistently: one phrasing of a harmless intent is accepted, a near-identical paraphrase is rejected. Refusal rate alone cannot see it — models with near-identical rates turn out to have very different confusion profiles.",
         approach:
-          "Sentence embeddings confirm two prompts really are equivalent; perplexity and token-level signals pinpoint where the decision flips. That separation tells a real safety boundary apart from pattern-matching.",
+          "Each refusal is compared against its FAISS-retrieved accepted neighbours on three axes — score drift, probability shift and perplexity contrast — which exposes safety-alignment gaps that coarse prompt-embedding similarity misses.",
         contribution:
-          "As co-author I helped formalize the failure mode and build the tools: ParaGuard, a 10,000-prompt corpus of controlled paraphrase clusters, and three token-level metrics — Confusion Index, Rate, and Depth.",
-        results: "ParaGuard · 10,000 prompts · 3 metrics",
+          "I developed ParaGuard, the 10,000-prompt corpus of controlled paraphrase clusters, and designed the three token-level metrics — Confusion Index, Rate and Depth. I also ran the cohort analysis across model families.",
+        results:
+          "ParaGuard · 10,000 prompts · CI/CR/CD across Llama, Mistral, Qwen and GPT families",
       },
 
       links: [{ label: "Read the paper", href: "https://arxiv.org/abs/2512.01037" }],
