@@ -27,14 +27,24 @@ export const site = {
   },
 
   /* The deck, in order. `top` is the profile section. */
+  /* THIS ARRAY IS THE SECTION ORDER, not just the navigation — render.js walks
+     it to build the page, and the numbered eyebrows count along it. Moving an
+     entry moves the section and renumbers everything after it.
+
+     NEWS SITS LAST. It used to be second, directly under the hero, on the
+     argument that a recent acceptance is the strongest single signal on the
+     page. Against that: it is the only section that is purely chronological,
+     and a reader who has just met you wants to know what you work on before
+     they want a timeline of it. Research, Projects and Experience make the
+     case; News is the record of it, and a record belongs at the back. */
   nav: [
     { id: "top", label: "About me" },
-    { id: "news", label: "News" },
     { id: "research", label: "Research" },
     { id: "projects", label: "Projects" },
     { id: "experience", label: "Experience" },
     { id: "education", label: "Education" },
     { id: "skills", label: "Skills" },
+    { id: "news", label: "News" },
   ],
 
   /* The short full-screen opening, shown once per browsing session. About

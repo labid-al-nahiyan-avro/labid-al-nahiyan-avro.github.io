@@ -2059,7 +2059,12 @@ html.photo, html.photo body { height: auto; overflow: visible; }
     order: -1;
   }
   .row__lead[data-kind="date"] { margin-top: 0; }
-  .row__body { padding-left: 0; padding-right: 0; }
+  /* THE CARD'S OWN PADDING, NOT ZERO. On desktop the body is indented to line
+     up with the title, so its left padding is built from the lead column plus
+     two gaps. `--lead` is 0 here, and this rule used to zero the horizontal
+     padding outright to match — which put every expanded field hard against
+     both edges of the card while the collapsed head above it stayed inset. */
+  .row__body { padding-left: var(--space-4); padding-right: var(--space-4); }
   .row__title { max-width: none; }
 
   .skillgroup { grid-template-columns: 1fr; gap: var(--space-2); }
