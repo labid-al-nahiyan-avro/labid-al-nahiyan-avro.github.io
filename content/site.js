@@ -16,7 +16,7 @@ export const site = {
   roles: ["ML Engineer @ TigerIT LTD"],
 
   /* The research areas listed under the roles. Keep to three or four. */
-  focus: ["Machine learning", "Computer vision", "Security"],
+  focus: ["Machine learning", "Security"],
 
   location: "Dhaka, Bangladesh",
 
