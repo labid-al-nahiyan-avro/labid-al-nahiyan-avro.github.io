@@ -753,7 +753,7 @@ function glancePanel() {
      a while; they are back under the bio because that is where every page in
      the survey puts them, and because five named pills need a text column's
      width — in a 17rem column they wrap to three ragged lines. */
-  const side = h("div", { class: "hero__side" }, portrait);
+  const side = portrait;
 
   const text = h(
     "div",

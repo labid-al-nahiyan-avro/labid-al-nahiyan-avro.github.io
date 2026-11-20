@@ -840,6 +840,7 @@ html.intro-done .intro { display: none; }
 .hero__figure {
   position: relative;
   margin: 0;
+  align-self: center;
   width: 100%;
   aspect-ratio: 4 / 5;
   border-radius: var(--radius-photo);
