@@ -92,6 +92,22 @@
 
   --focus:      #4264b6;
 
+  /* --- Brand marks ---------------------------------------------------------
+     THE ONLY COLOURS ON THIS SITE THAT ARE NOT FROM THE PALETTE, and the
+     exception is deliberate: a reader recognises LinkedIn blue and the GitHub
+     mark faster than they read a label, which is the whole point of an
+     icon-only row. Everything else on the page stays inside the seven
+     perceptually-levelled families.
+
+     They are theme-paired because two of them have to be. GitHub's mark is
+     near-black and would vanish on the dark ground; LinkedIn's #0a66c2 is too
+     dark to read there. Both use the values those services themselves ship for
+     dark backgrounds. */
+  --brand-email:    #ea4335;   /* Gmail red */
+  --brand-github:   #181717;
+  --brand-linkedin: #0a66c2;
+  --brand-scholar:  #4285f4;
+
   /* --- Tag geometry -------------------------------------------------------
      An editorial label, not a SaaS pill: the radius stays well short of a
      capsule and the padding is tight enough that a row of tags never
@@ -271,6 +287,11 @@
 
   --dk-focus:      #97b8ff;
 
+  --dk-brand-email:    #f28b82;
+  --dk-brand-github:   #f0f6fc;
+  --dk-brand-linkedin: #70b5f9;
+  --dk-brand-scholar:  #8ab4f8;
+
   /* A tinted film reads differently over a dark ground than a light one, so
      the two dials that govern every tint are turned up a little here. */
   --dk-tag-bed:     14%;
@@ -322,6 +343,11 @@
   --accent-education: var(--dk-accent-education);
   --accent-skills: var(--dk-accent-skills);
   --focus: var(--dk-focus);
+
+  --brand-email: var(--dk-brand-email);
+  --brand-github: var(--dk-brand-github);
+  --brand-linkedin: var(--dk-brand-linkedin);
+  --brand-scholar: var(--dk-brand-scholar);
   --tag-bed: var(--dk-tag-bed);
   --tag-line: var(--dk-tag-line);
   --tag-bed-on: var(--dk-tag-bed-on);

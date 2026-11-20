@@ -24,7 +24,7 @@ export const links = {
      Two copies would be the real trap — the next update would silently refresh
      only one of them — so the generic duplicate is gone. If this filename
      changes, the no-JavaScript block in index.html links to it too. */
-  cv: "assets/Labid_al_nahiyan_academic_CV.pdf",
+  cv: "assets/Labid_al_nahiyan_CV.pdf",
 
   /* Earlier work lives on the account you lost access to. Shown as a small
      note at the end of the last section. Blank hides the note. */

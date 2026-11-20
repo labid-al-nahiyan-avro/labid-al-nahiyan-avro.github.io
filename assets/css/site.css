@@ -585,6 +585,34 @@ html.intro-done .intro { display: none; }
    3.25rem tall and a rule inside it lands too close to the border below. */
 .navlink[aria-current="true"] { color: var(--accent); font-weight: 600; }
 
+/* The CV button in the bar. Outlined, so it reads as a control rather than as
+   an eighth section; small enough that it does not outweigh the nav beside it.
+   It keeps its label on desktop and drops to the icon alone on narrow screens,
+   where the words would push the Menu button off the row. */
+.topbar__cv {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--rule);
+  border-radius: var(--tag-radius);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color var(--t-fast) var(--ease),
+              border-color var(--t-fast) var(--ease),
+              background var(--t-fast) var(--ease);
+}
+.topbar__cv:hover {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+.topbar__cv .icon { width: 14px; height: 14px; color: currentColor; opacity: 1; }
+
 .topbar__toggle {
   display: none;
   padding: var(--space-2) var(--space-3);
@@ -637,19 +665,24 @@ html.intro-done .intro { display: none; }
   gap: var(--space-5);
 }
 
-.section__head { display: grid; gap: var(--space-2); justify-items: start; }
-
-/* The index line. Small, and the only thing above the title. */
-.section__eyebrow {
+/* Number, title and rule on one baseline. The rule fills whatever is left,
+   which is what makes a short heading and a long one both look deliberate. */
+.section__head {
   display: flex;
   align-items: baseline;
-  gap: var(--space-2);
+  gap: var(--space-3);
+}
+
+/* The index. Beside the title now, not above it. */
+.section__num {
+  font-family: var(--font-mono);
   font-size: var(--step--2);
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: var(--tracking-mono);
   font-variant-numeric: tabular-nums;
+  color: var(--accent);
+  flex: none;
 }
-.section__num { color: var(--accent); font-weight: 700; }
 
 /* The heading a reader actually catches when scanning. */
 .section__title {
@@ -665,9 +698,10 @@ html.intro-done .intro { display: none; }
    any colour appears undiluted. It draws itself open as the section arrives. */
 .section__rule {
   display: block;
-  width: 3.5rem;
+  flex: 1;
   height: 2px;
-  background: var(--accent);
+  min-width: var(--space-6);
+  background: color-mix(in srgb, var(--accent) 38%, var(--rule-2));
   transform-origin: left center;
 }
 .js .reveal .section__rule { transform: scaleX(0); }
@@ -763,6 +797,18 @@ html.intro-done .intro { display: none; }
   font-weight: 600;
   color: var(--ink-3);
 }
+
+/* The research areas, directly under the title. Mono and small, so it reads as
+   a keyword line rather than as a sentence — a professor scanning for a match
+   is looking for these words and nothing else. */
+.hero__areas {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+  max-width: var(--measure);
+}
 /* The one sentence about the work. A step up from the bio under it, so the
    two do not read as one four-paragraph block. */
 .hero__lede {
@@ -771,6 +817,16 @@ html.intro-done .intro { display: none; }
   color: var(--ink);
   max-width: var(--measure);
   margin-top: var(--space-2);
+}
+
+/* The right-hand column: portrait, then the controls under it. `align-self`
+   sits here rather than on the figure, so the pair is centred as one block
+   against the text beside it. */
+.hero__side {
+  display: grid;
+  gap: var(--space-4);
+  align-self: center;
+  justify-items: start;
 }
 
 /* THE PORTRAIT IS A PHOTOGRAPH, NOT AN AVATAR. 4:5, squared corners softened
@@ -784,7 +840,6 @@ html.intro-done .intro { display: none; }
 .hero__figure {
   position: relative;
   margin: 0;
-  align-self: center;
   width: 100%;
   aspect-ratio: 4 / 5;
   border-radius: var(--radius-photo);
@@ -844,6 +899,54 @@ html.intro-done .intro { display: none; }
   border-color: color-mix(in srgb, var(--accent) 85%, transparent);
 }
 
+/* -- the glance panel -------------------------------------------------------
+   Four facts in the column under the portrait: what landed, what is running,
+   where they work, what they read. It occupies space the page already had —
+   the photograph is 340px in a column the bio makes ~790px tall — so it adds
+   information to the first screen at no cost in height.
+
+   Quiet on purpose. This is the margin of the page, not its masthead: mono
+   labels at 11px, one accent rule down the left, and no colour anywhere else.
+   The loud version of this idea is the figures block in content/overview.js,
+   which is off because four numbers at display size read as a dashboard. */
+
+.glancepanel {
+  display: grid;
+  gap: var(--space-4);
+  padding-left: var(--space-4);
+  border-left: 2px solid color-mix(in srgb, var(--accent) 30%, var(--rule-2));
+}
+
+.glanceitem { display: grid; gap: 2px; }
+
+.glanceitem__label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.glanceitem__title {
+  font-size: var(--step--1);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+  /* Titles here are long — a paper title in a 240px column wraps to three
+     lines and would push the panel past the photograph's column. Two lines,
+     then an ellipsis; the full text is a scroll away in its own section. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.glanceitem__note {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  color: var(--ink-3);
+}
+
 /* The photography page still renders a portrait of its own. */
 .portrait {
   margin: 0;
@@ -855,71 +958,69 @@ html.intro-done .intro { display: none; }
 }
 .portrait img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
 
-/* -- the controls under the bio -------------------------------------------- */
-/* One labelled button and a row of icons. The CV is the thing a committee
-   actually opens, so it is the only one that keeps a word; four profiles a
-   reader may want once do not deserve four lines of text. */
-.actions {
+/* -- the contact pills ------------------------------------------------------
+   One pill per destination, the name written inside it. Rounded, outlined,
+   quiet — the emphasis in this block belongs to the name at 56px above it, not
+   to a row of links.
+
+   This is the third design for these controls and the first one taken from the
+   page rather than from taste: comparable pages in this subfield name their
+   destinations in text, and the ones that use icons still write the email
+   address out beside them. The reasoning is written up in `contactRow()`.
+
+   Colour is on hover only. Five pills all tinted at rest would be five things
+   competing at the bottom of the hero; at rest they are one calm row and the
+   brand colour arrives when a pointer picks one out. */
+
+.pills {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-3);
-  margin-top: var(--space-4);
+  gap: var(--space-2);
+  margin-top: var(--space-5);
 }
 
-.btn {
+.pill {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
+  padding: 0.4rem var(--space-4);
   border: 1px solid var(--rule);
-  border-radius: var(--tag-radius);
-  background: color-mix(in srgb, var(--paper-2) 60%, transparent);
+  border-radius: 999px;
   font-size: var(--step--1);
-  font-weight: 600;
-  color: var(--ink);
+  font-weight: 500;
+  color: var(--ink-2);
   text-decoration: none;
-  transition: border-color var(--t-fast) var(--ease),
-              background var(--t-fast) var(--ease),
-              color var(--t-fast) var(--ease);
+  white-space: nowrap;
+  transition: color var(--t-fast) var(--ease),
+              border-color var(--t-fast) var(--ease),
+              background var(--t-fast) var(--ease);
 }
-.btn:hover {
-  color: var(--accent);
-  border-color: color-mix(in srgb, var(--accent) 50%, transparent);
-  background: color-mix(in srgb, var(--accent) 8%, transparent);
-}
-.btn .icon { width: 15px; height: 15px; color: currentColor; }
-
-.iconrow { display: flex; align-items: center; gap: var(--space-2); }
-
-.iconbtn {
-  display: grid;
-  place-items: center;
-  width: 2.4rem;
-  height: 2.4rem;
-  border: 1px solid var(--rule-2);
-  border-radius: var(--tag-radius);
-  background: color-mix(in srgb, var(--paper-2) 45%, transparent);
-  color: var(--ink-3);
-  transition: border-color var(--t-fast) var(--ease),
-              background var(--t-fast) var(--ease),
-              color var(--t-fast) var(--ease),
-              transform var(--t-fast) var(--ease);
-}
-/* Each service keeps the colour it had in the old contact column, and only on
-   hover. At rest the row is one neutral grey, so it reads as a set rather than
-   as four differently-coloured badges. */
-.iconbtn[data-key="email"]    { --mark: var(--tag-security); }
-.iconbtn[data-key="github"]   { --mark: var(--tag-systems); }
-.iconbtn[data-key="linkedin"] { --mark: var(--tag-web); }
-.iconbtn[data-key="scholar"]  { --mark: var(--tag-research); }
-.iconbtn:hover {
+.pill:hover {
   color: var(--mark, var(--accent));
-  border-color: color-mix(in srgb, var(--mark, var(--accent)) 45%, transparent);
-  background: color-mix(in srgb, var(--mark, var(--accent)) 9%, transparent);
-  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--mark, var(--accent)) 50%, transparent);
+  background: color-mix(in srgb, var(--mark, var(--accent)) 8%, transparent);
 }
-.iconbtn .icon { width: 16px; height: 16px; color: currentColor; opacity: 1; }
+
+/* The brand colours, kept for the hover state. A reader who knows LinkedIn
+   blue gets the confirmation as they reach for it. */
+.pill[data-key="email"]    { --mark: var(--brand-email); }
+.pill[data-key="github"]   { --mark: var(--brand-github); }
+.pill[data-key="linkedin"] { --mark: var(--brand-linkedin); }
+.pill[data-key="scholar"]  { --mark: var(--brand-scholar); }
+
+/* The CV is the one a committee opens, so it is the one filled pill. Solid
+   against four outlines says "start here" without needing a different size or
+   a different shape. */
+.pill--primary {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--page);
+  font-weight: 600;
+}
+.pill--primary:hover {
+  border-color: var(--ink-2);
+  background: var(--ink-2);
+  color: var(--page);
+}
 
 /* The icons themselves. One stroke weight, currentColor. */
 .icon {
@@ -942,7 +1043,10 @@ html.intro-done .intro { display: none; }
 
 .bio__text {
   font-size: var(--step-1);
-  line-height: var(--leading-body);
+  /* 1.55 rather than the body's 1.65. Five paragraphs at 18px is the tallest
+     block on the page, and a tenth off the leading is about 45px back without
+     the text feeling set tight. */
+  line-height: 1.55;
   color: var(--ink-2);
   /* Was 54ch, which set the bio narrower than every other block of prose on
      the site for no reason anyone recorded — and made the one section a reader
@@ -1269,6 +1373,10 @@ html.intro-done .intro { display: none; }
   align-items: start;
   padding: var(--space-3) var(--space-4);
 }
+/* The description is the tallest thing in a collapsed card — two lines of it
+   at body leading. 1.45 instead of the body's 1.65 takes roughly 10px off
+   every card without making it feel cramped. */
+.row__desc { line-height: 1.45; }
 
 /* A <details> card: the padding belongs to the summary and the body, so the
    two meet without a seam and the card can stay one box. */
@@ -1356,7 +1464,7 @@ html.intro-done .intro { display: none; }
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2) var(--space-3);
+  gap: var(--space-2);
   margin-top: var(--space-2);
 }
 .row__foot .tags { margin-top: 0; }
@@ -1774,8 +1882,9 @@ html.intro-done .intro { display: none; }
   color: var(--ink-2);
   max-width: 34ch;
 }
-/* The controls are the hero's, so they arrive with its top margin. */
-.pagefoot .actions { margin-top: 0; }
+/* Pills wrap on their own; the footer needs no override beyond killing the
+   hero's top margin. */
+.pagefoot .pills { margin-top: 0; }
 
 /* The bar. A hairline, the colophon, and the way back up. */
 .pagefoot__bar {
@@ -2029,16 +2138,29 @@ html.photo, html.photo body { height: auto; overflow: visible; }
   .navlink { padding-block: var(--space-3); border-radius: 0; }
   .topbar__toggle { display: block; }
 
+  /* Icon only. The CV stays in the bar rather than folding into the menu —
+     it is the one thing that should never be behind a tap. */
+  .topbar__cv-label { display: none; }
+  .topbar__cv { padding: var(--space-2); }
+
   /* The portrait stops being a column and becomes a round mark above the
      text — a 17rem photo beside a 20rem paragraph is two narrow columns,
      which is worse than either one alone. */
   .hero { grid-template-columns: minmax(0, 1fr); }
+
+  /* `display: contents` dissolves the side wrapper, so the portrait and the
+     controls become direct children of `.hero` again and can be ordered
+     independently: photo above the name, controls below the bio. Grouping them
+     is a desktop arrangement — stacked, "photo, CV, icons, name" would put the
+     contacts before the reader knows whose they are. */
+  .hero__side { display: contents; }
   .hero__figure {
     order: -1;
     width: 9rem;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
   }
+  .hero .pills { margin-top: var(--space-4); }
   /* A 0.75rem offset on a 9rem circle is a quarter of its width and reads as
      two circles rather than as one framed one. It also has no hover to resolve
      it on a touch screen, so it sits closer and stays there. */

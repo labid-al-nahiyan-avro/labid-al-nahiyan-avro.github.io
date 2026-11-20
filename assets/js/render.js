@@ -125,8 +125,13 @@ function section(id, children, { label, bare } = {}) {
           /* Just the index. The slash used to separate the number from the
              name; the name is the heading below now, so the slash separated
              nothing and read as an unfinished line. */
-          h("p", { class: "section__eyebrow" },
-            h("span", { class: "section__num", text: num(i) })),
+          /* ONE LINE: number, title, then a rule running to the edge of the
+             frame. It used to be three stacked elements — eyebrow over title
+             over a short bar — which is a handsome arrangement that cost about
+             45px of height seven times over. Set across, the number still
+             indexes, the title still leads, and the rule does the separating
+             it was already doing. */
+          h("span", { class: "section__num", text: num(i) }),
           h("h2", { class: "section__title", text: heading }),
           h("span", { class: "section__rule", "aria-hidden": "true" })
         ),
@@ -163,12 +168,6 @@ function row({ lead, leadKind, title, description, meta, areas, aside, stage, st
     h(
       "span",
       { class: "row__main" },
-      /* The status pill. It sits ABOVE the title rather than beside it: a
-         reader scanning the list is answering "is this finished?" before
-         they read what it is, and a pill on the same line as the title
-         competes with the title for the first glance. `data-state` is what
-         the stylesheet colours it by — see `.row__status` in site.css. */
-      isFilled(stage) && h("span", { class: "row__status", "data-state": state || "done", text: stage }),
       h("span", { class: "row__title", text: title }),
       isFilled(description) && h("span", { class: "row__desc", text: description }),
       /* THE FOOTER IS ONE LINE, NOT THREE.
@@ -177,10 +176,18 @@ function row({ lead, leadKind, title, description, meta, areas, aside, stage, st
          line and wrap together instead of stacking into three more rows. On
          fourteen cards that was most of a screen of height, and stacked they
          read as three separate afterthoughts rather than as one footer. */
-      (isFilled(meta) || isFilled(aside) || (areas || []).length)
+      /* THE FOOTER CARRIES THE STATUS NOW. The pill used to sit on its own line
+         above the title, so a reader could answer "is this finished?" before
+         reading what it was. True, and it cost a whole row of height on every
+         card that had one. Down here it sits first in the footer, still the
+         only coloured chip in the row and still read before the grey metadata
+         beside it — for about 30px less. */
+      (isFilled(meta) || isFilled(aside) || isFilled(stage) || (areas || []).length)
         ? h(
             "span",
             { class: "row__foot" },
+            isFilled(stage) &&
+              h("span", { class: "row__status", "data-state": state || "done", text: stage }),
             isFilled(meta) && h("span", { class: "row__meta", text: meta }),
             /* One fact worth colouring on its own — a grade, a standing.
                Accent, so it is found before the grey metadata beside it. */
@@ -288,12 +295,31 @@ export function renderTopbar(mount) {
     if (event.target.closest(".navlink")) setOpen(false);
   });
 
+  /* THE CV LIVES IN THE BAR, AND IT IS NOT A NAV LINK.
+     It was reachable from exactly two places — the hero and the footer — which
+     measured as on screen for 24% of the page height. It is the one artifact a
+     committee actually opens, so for the other 76% the single most important
+     link was a scroll away in one direction or the other.
+
+     It sits with the theme control rather than in the link list because it is a
+     different kind of thing: every other item in the bar moves you within this
+     page, and this one hands you a file. Same reason it keeps a border while
+     the nav links do not. */
+  const cv = isFilled(links.cv)
+    ? h(
+        "a",
+        { class: "topbar__cv", href: links.cv, "aria-label": "Curriculum vitae (PDF)" },
+        icon("cv"),
+        h("span", { class: "topbar__cv-label", text: "CV" })
+      )
+    : null;
+
   mount.append(
     h(
       "div",
       { class: "topbar__in frame" },
       nav,
-      h("div", { class: "topbar__end" }, themeButton(), toggle)
+      h("div", { class: "topbar__end" }, cv, themeButton(), toggle)
     )
   );
 }
@@ -501,50 +527,61 @@ function bioParagraph(text) {
 function contactRow() {
   const rows = profileLinks.filter((item) => isFilled(links[item.key]));
 
-  const action = rows.find((item) => item.style === "action");
-  const rest = rows.filter((item) => item.style !== "action");
+  /* Capitalising the key gave "Github" and "Linkedin". These are proper nouns
+     with their own casing, and getting someone's own product name wrong on a
+     page asking to be taken seriously is a small, avoidable tell. */
+  const NAMES = {
+    email: "Email",
+    github: "GitHub",
+    linkedin: "LinkedIn",
+    scholar: "Google Scholar",
+    orcid: "ORCID",
+    cv: "Curriculum vitae",
+  };
 
   const label = (item) =>
-    item.text ||
-    item.label ||
-    (item.key === "email" ? "Email" : item.key[0].toUpperCase() + item.key.slice(1));
+    item.text || item.label || NAMES[item.key] || item.key[0].toUpperCase() + item.key.slice(1);
+
+  /* WORDS, NOT GLYPHS. This went through icon buttons and a labelled list
+     before landing here, and the reason it landed here is that it is what
+     comparable pages actually do. Surveyed, in this subfield:
+
+       Feldman (Tel Aviv, LLM/agent security)  three text pills, no icons at all
+       Huang (Georgia Tech)                    email written out, icons tiny and aside
+       Bagdasarian (UMass)                     email written out, then icons
+       Hassan                                  one labelled CV button, then icons
+
+     The common thread is that the destination is named. Nobody makes a reader
+     decode five pictograms to find an email address, and the two pages that
+     lean hardest on icons still write the address out in text beside them.
+
+     So: one pill per destination, the name inside it. No tooltip layer, no
+     hover-to-discover, nothing that fails on a touch screen — and no row of
+     five squares to tell apart.
+
+     The CV leads and is the filled one. `profileLinks` is in reading order
+     with the CV last, which is right for a contact list and wrong here;
+     ordering is presentation, so it is decided in this file. */
+  const ordered = [
+    ...rows.filter((item) => item.style === "action"),
+    ...rows.filter((item) => item.style !== "action"),
+  ];
 
   return h(
     "div",
-    { class: "actions" },
-    action
-      ? h(
-          "a",
-          {
-            class: "btn",
-            href: links[action.key],
-            "aria-label": action.label || "Curriculum vitae",
-          },
-          icon(action.key),
-          h("span", { text: action.label || "Curriculum vitae" })
-        )
-      : null,
-    h(
-      "div",
-      { class: "iconrow" },
-      rest.map((item) => {
-        const raw = links[item.key];
-        const href = item.key === "email" ? `mailto:${raw}` : raw;
-        const external = /^https?:/.test(href);
-        return h(
-          "a",
-          {
-            class: "iconbtn",
-            "data-key": item.key,
-            href,
-            title: label(item),
-            "aria-label": label(item),
-            ...(external ? { target: "_blank", rel: "noopener" } : {}),
-          },
-          icon(item.key)
-        );
-      })
-    )
+    { class: "pills" },
+    ordered.map((item) => {
+      const raw = links[item.key];
+      const href = item.key === "email" ? `mailto:${raw}` : raw;
+      const external = /^https?:/.test(href);
+      return h("a", {
+        class: item.style === "action" ? "pill pill--primary" : "pill",
+        "data-key": item.key,
+        href,
+        ...(external ? { target: "_blank", rel: "noopener" } : {}),
+        text: label(item),
+      });
+    })
   );
 }
 
@@ -634,11 +671,111 @@ function renderProfile() {
       )
     : null;
 
+  /* THE CONTROLS SIT UNDER THE PORTRAIT, NOT UNDER THE BIO.
+     They used to close the text column, which put them below four paragraphs
+     — the further down the bio ran, the further the CV and the profiles sank,
+     and on a short window they fell out of the first screen entirely. Under
+     the portrait they are pinned to the top of the page instead: the identity
+     block becomes face, then the ways to reach it, which is the arrangement
+     the eye already expects.
+
+     It also fills the column. The portrait is 17rem wide against a much taller
+     text column beside it, so everything under the photograph was empty space
+     that the page had already paid for. */
+/**
+ * THE GLANCE PANEL — what fills the column under the portrait.
+ *
+ * The photograph is 340px tall in a column the bio makes ~790px tall, which
+ * left 447px of empty page *inside the first screen*. That was the single
+ * largest piece of unused space on the site, and it sat exactly where a reader
+ * deciding in ten seconds is looking.
+ *
+ * It answers the four questions a committee asks in order — what has landed,
+ * what is running, where do they work, what did they read — and it answers
+ * them without costing a pixel of height, because the column was already that
+ * tall.
+ *
+ * IT IS NOT THE OLD FIGURES BLOCK. That one set four numbers at display size
+ * across the top of the page and read as a product dashboard; it is still off
+ * behind `overview.show`. This is a quiet sidebar note in the margin: small
+ * mono labels, one fact each, no colour except the accent rule.
+ *
+ * EVERY LINE IS READ FROM CONTENT, never written here — the paper comes from
+ * research.js, the post from experience.js, the degree from education.js. A
+ * panel that restates the page from its own copy is a panel that goes stale.
+ */
+function glancePanel() {
+  const entries = [];
+
+  /* Each note names the field it comes from rather than slicing a longer
+     string. An earlier version took the last two segments of the paper's
+     `meta`, which worked until a supervisor was added to it and the panel
+     started reporting a supervisor where a venue belonged. Derive from the
+     field that means the thing you want. */
+  const done = (research.items || []).find(
+    (it) => (it.status || "done") === "done" && it.kind === "paper"
+  );
+  if (done) entries.push({ label: "Latest", title: done.title, note: done.stage });
+
+  const ongoing = (research.items || []).find((it) => it.status === "ongoing");
+  if (ongoing) entries.push({ label: "Now", title: ongoing.title, note: ongoing.stage });
+
+  const job = (experience.items || [])[0];
+  if (job) {
+    entries.push({
+      label: "Position",
+      title: job.role,
+      note: [job.organization, job.period].filter(Boolean).join(" · "),
+    });
+  }
+
+  const edu = (education.items || [])[0];
+  if (edu) entries.push({ label: "Education", title: edu.degree, note: edu.result });
+
+  if (!entries.length) return null;
+
+  return h(
+    "div",
+    { class: "glancepanel" },
+    entries.map((e) =>
+      h(
+        "div",
+        { class: "glanceitem" },
+        h("p", { class: "glanceitem__label", text: e.label }),
+        h("p", { class: "glanceitem__title", text: e.title }),
+        isFilled(e.note) ? h("p", { class: "glanceitem__note", text: e.note }) : null
+      )
+    )
+  );
+}
+
+  /* The portrait is the whole right column again. The links went under it for
+     a while; they are back under the bio because that is where every page in
+     the survey puts them, and because five named pills need a text column's
+     width — in a 17rem column they wrap to three ragged lines. */
+  const side = h("div", { class: "hero__side" }, portrait, glancePanel());
+
   const text = h(
     "div",
     { class: "hero__text" },
     h("h1", { class: "hero__name", text: site.name }),
     h("p", { class: "hero__role", text: site.roles.join(" · ") }),
+
+    /* THE RESEARCH AREAS, IN THE FIRST 200px OF THE PAGE.
+       They already exist as tags at the top of the Research section — which is
+       roughly 1,700px down, past the whole bio. A reader deciding in ten
+       seconds whether this is a match for their lab never got there.
+
+       Set as one line of text rather than as the coloured tag row, because
+       this is the third thing on the page and a row of seven tinted chips
+       under a 56px name is too much at once; the tag row in Research keeps the
+       colour. Same list, read from content/research.js, so the two cannot
+       drift. This is what the closest comparable page does — Feldman runs
+       "AI security · LLM safety · adversarial ML" directly under his title. */
+    (research.interests || []).length
+      ? h("p", { class: "hero__areas", text: research.interests.join("  ·  ") })
+      : null,
+
     status,
     isFilled(overview.statement)
       ? h("p", { class: "hero__lede", text: overview.statement })
@@ -648,7 +785,7 @@ function renderProfile() {
     contactRow()
   );
 
-  return section("top", [reveal(h("div", { class: "hero" }, text, portrait), 0)], { bare: true });
+  return section("top", [reveal(h("div", { class: "hero" }, text, side), 0)], { bare: true });
 }
 
 /* ---------- 02 news ---------- */
@@ -880,6 +1017,15 @@ function renderProjects() {
     )
   );
 
+  /* ONE COLUMN, AND THIS WAS MEASURED RATHER THAN ASSUMED. Two across looked
+     like the obvious saving — five short cards, no reading order. It made the
+     section nearly twice as tall: 823px became 1598px, because a 500px column
+     wraps these descriptions to five lines each where a full-width one takes
+     two. Narrow columns only pay when the text inside them is short, and these
+     descriptions carry the specifics from the CV.
+
+     If this is ever tried again, measure the section height before and after —
+     the intuition is wrong here. */
   body.push(h("div", { class: "rows" }, items));
 
   /* The closing line. See the `more` note in content/projects.js for why the
