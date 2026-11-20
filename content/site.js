@@ -22,7 +22,7 @@ export const site = {
 
   /* The PhD line, shown at the end of the bio. */
   availability: {
-    show: true,
+    show: false,
     text: "Open to Fall 2027 PhD opportunities",
   },
 
